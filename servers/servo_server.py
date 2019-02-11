@@ -49,18 +49,18 @@ if __name__=='__main__':
 
     try:
         serverSocket.bind((host, port))
-        print 'Connected Waiting for request:'
         serverSocket.listen(5)
-        clientSocket, address = serverSocket.accept()   #Accepte connection
+        clientSocket, address = serverSocket.accept()
+        print 'Connected Waiting for request:'
     except socket.error as msg:
         print 'Bind fail : ' +str(msg[0]) + 'MESSAGE= '+ msg[1]
         sys.exit()
 
 
     while True:
-    	angle = clientSocket.recv(buffer_size)          #Recoit buffer
+    	  angle = clientSocket.recv(buffer_size)          #Recoit buffer
         angle = angle.decode()                          #Convertion string
-        angle = int(angle)/10 + 5                            #Converion angle
+        angle = int(angle)/10 + 5                       #Converion angle
 
         try:
             p.ChangeDutyCycle(angle)
