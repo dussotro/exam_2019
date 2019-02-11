@@ -7,7 +7,7 @@ import signal
 
 #Initialisation du Server
 serverSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-host = socket.gethostname()
+host = "172.20.21.164"
 port = 15554
 
 buffer_size = 256
@@ -49,18 +49,18 @@ if __name__=='__main__':
 
     try:
         serverSocket.bind((host, port))
+        print 'Connected Waiting for request:'
+        serverSocket.listen(5)
+        clientSocket, address = serverSocket.accept()   #Accepte connection
     except socket.error as msg:
         print 'Bind fail : ' +str(msg[0]) + 'MESSAGE= '+ msg[1]
         sys.exit()
 
 
     while True:
-        serverSocket.listen(10)
-    	clientSocket, address = serverSocket.accept()
-    	angle = clientSocket.recv(buffer_size)
-        angle = angle.decode()
-        angle = bytes_to_int(angle)
-        angle = int(angle)/10 + 5
+    	angle = clientSocket.recv(buffer_size)          #Recoit buffer
+        angle = angle.decode()                          #Convertion string
+        angle = int(angle)/10 + 5                            #Converion angle
 
         try:
             p.ChangeDutyCycle(angle)
