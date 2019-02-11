@@ -33,6 +33,12 @@ def close(signal, frame):
     GPIO.cleanup()
     print 'SIG:'+ signal + 'Program Interupted'
 
+def bytes_to_int(bytes):
+    result = 0
+    for b in bytes:
+        result = result * 256 + int(b)
+    return result
+
 signal.signal(signal.SIGINT, close)
 signal.signal(signal.SIGTERM, close)
 signal.signal(signal.SIGQUIT, close)
@@ -53,6 +59,7 @@ if __name__=='__main__':
     	clientSocket, address = serverSocket.accept()
     	angle = clientSocket.recv(buffer_size)
         angle = angle.decode()
+        angle = bytes_to_int(angle)
         angle = int(angle)/10 + 5
 
         try:
