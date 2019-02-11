@@ -1,7 +1,13 @@
 Linux Embarqué : Mini Projet.
+=========
 
 =========Installations requises======
-* docker
+* docker      *sudo apt install docker*
+* MatplotLib  *sudo pip install matplotlib*
+* Pygame      *sudo pip install pygame*
+* PIL         *sudo pip install Pillow*
+* GTKterm     *sudo apt-get install gtkterm*
+* librairies libv4l & libjpeg *sudo apt install libjpeg-dev libv4l-dev autoconf automake libtool*
 =====================================
 
 # Flashage de la Raspberry
@@ -26,19 +32,29 @@ Puis on Flash l'image sur la carte SD grâce à la commande _dd_
 
 _sdX_ étant le port sur lequel la carte SD est branché. On peut le récupérer a l'aide de _dmesg_.
 
-Dans le docker commencer par faire un _autogen_, puis un _configure_ et enfin cross compilé.
+Dans le docker commencer par faire:
+* _./autogen_, puis
+* _./configure --host=arm-buildroot-linux-uclibcgnueabihf cc=../buildroot-precompiled-2017.08/output/host/usr/bin/arm_linux_gcc_
+* et enfin cross compilé.
 
 Pour ce faire, il existe la méthode brute qui consiste à modifier les gcc par le gcc du processeur **ARM** dans le Makefile.
 
-# Servo Moteur
+#Cross Compilation
 
-On a choisit de brancher le servo moteur sur le port **GPIO4**.
+Commande à réaliser pour cross compiler votre fichier si vous voulez modifier le fichier C ou en créer un nouveau.
 
-Sur le servo moteur, on envoie une commande en angle entre 0 et 180 degres.
+*../../buildroot-precompiled-2017.08/output/host/usr/bin/arm-linux-gcc -Wall nom_du_fichier.c -o nom_du_fichier.o*
 
-# Modification de l'adresse Ip de la Raspb pour la rendre statique
+#Copier Fichier dans la RaspberryPi
+
+Il faut copier votre binaire dans la Raspberry Pi.
+Pour cela aller sur votre ordinateur, ouvrez gtkterm et configurer le sur le bon port série *ttyUSB0* par exemple (check on _dmesg | grep tty_).
+
+
+# Modification de l'adresse Ip de la RaspberryPi pour rendre l'IP statique
 
 Afin de modifier l'adresse ip de la Raspberry
+Connecter vous en liaison série avec votre RaspberryPi
 il faut effectuer les commandes suivantes :
 
 **$ sudo nano /etc/network/interfaces**
@@ -54,17 +70,40 @@ par
 address 172.20.21.164
 netmask 255.255.0.0*
 
-Adresse ip fixe de la raspberry : _172.20.21.164_
+Si vous voulez changer aussi l'adresse wifi de votre carte et la mettre en static rajouter les ligne suivantes a la suite des autre, Mettez une adresse Ip libre de votre réseau wifi :
 
-## Il faut ensuite faire correspondre
-Adresse ip fixe de l'ordinateur :
+*iface wlan0 inet static
 
-Pour l'orinateur il faut effectuer la commande
+address XXX.XXX.XXX.XXX
+netmask 255.255.0.0*
+
+
+Adresse ip fixe de la RaspberryPi : _172.20.21.164_
+
+## Il faut ensuite faire correspondre Adresse IP fixe de l'ordinateur :
+Pour l'ordinateur il faut effectuer la commande, avec XXXXXXX, le nom de l'ethernet de votre pc
 
 *ifconfig XXXXXXX 172.20.11.72*
 
-Pour moi XXXXXX c'est enp4s0f1, c'est le nom de l'ethernet du pc.
+# Servo Moteur
 
-_172.20.11.72_
+On a choisit de brancher le servo moteur sur le port **GPIO4**.
 
-../../buildroot-precompiled-2017.08/output/host/usr/bin/arm-linux-gcc
+Sur le servo moteur, on envoie une commande en angle entre 0 et 180 degrés.
+
+#Lancer le code grâce au Makefile !
+
+Aller dans ..., là où se trouve le Makefile et exécutez la commande *make*. A cette instant vous entrez dans la peau du client qui peut communiquer avec le server de la RaspberryPi. Reste plus qu'à jouer !
+
+
+# Règles du jeu ! Commandes chez le client
+
+* Pour changer l'angle de la caméra il vous faudra appuyer sur les touches flèches *droite* et *gauche*. L'angle s'affiche sur l'écran pour savoir ou vous en êtes.
+
+* Pour prendre une photo il faut appuyer sur la touche *s* de votre clavier pour sauvegarder l'image sur votre ordinateur et l'afficher. L'image est écrasée d'un appui à l'autre sur la touche *s*.
+
+
+Pour tout autre question ou évolution possible du code, veuillez vous adressez à l'adresse mail du fournisseur.
+
+
+L'équipe vous remercie de la confiance accordée à leur travail.
