@@ -65,6 +65,9 @@ Pour l'orinateur il faut effectuer la commande
 
 Pour moi XXXXXX c'est enp4s0f1, c'est le nom de l'ethernet du pc.
 
+/buildroot-precompiled-2017.08/output/build/rpi-firmware-685b3ceb0a6d6d6da7b028ee409850e83fb7ede7/boot
+(C'est l'endroit ou trouverl le fichier start_x et fixup_x)
+
 _172.20.11.72_
 
 ../../buildroot-precompiled-2017.08/output/host/usr/bin/arm-linux-gcc
