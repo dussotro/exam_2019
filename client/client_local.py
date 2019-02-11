@@ -9,11 +9,13 @@ import pygame
 from pygame.locals import *
 import time
 import PIL.Image as Image
+import matplotlib.pyplot as plt
+
 
 def close_all(signal, frame):
-	socket_servo.close()
-	socket_camera.close()
-	socket_image.close()
+	#socket_servo.close()
+	#socket_camera.close()
+	#socket_image.close()
 	print("\nSIG : {} : Interruption programme...".format(signal))
 	sys.exit(0)
 
@@ -28,8 +30,9 @@ def update(screen, servo, img):
 	screen.blit(img, (0,0))
 	screen.blit(font.render("Angle = {:d}".format(servo),-1, (255,255,255)), (70,200))
 	pygame.display.update()	
+		
 
-
+"""
 if len(sys.argv) < 2:
 	print("Merci de rentrer l'adresse IP de la raspberry en argument")
 	sys.exit()
@@ -39,13 +42,14 @@ if sys.argv[1]:
 	if not check_adresse_ip(adresse):
 		print("Adresse IP non valide")
 		sys.exit()
-	
+
 try:
 	socket_image.close()
 	socket_servo.close()
 	socket_camera.close()
 except:
 	pass	
+"""
 
 #Paramètre IP et port	
 hote = sys.argv[1]
@@ -63,6 +67,9 @@ data = np.zeros([640, 480, 3])
 image = Image.frombytes("RGB", (640, 480), data)
 image.save('out.jpg')
 
+
+cpt=0
+
 if __name__=='__main__':
 
 	#Initialisation pygame window
@@ -77,26 +84,25 @@ if __name__=='__main__':
 	isEnabled = 0
 
    	#Creation du socket et connection au port 
-	socket_servo  = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	socket_camera = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	socket_image  = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	#socket_servo  = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	#socket_camera = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	#socket_image  = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 	#Connection aux différents sockets 
-	socket_servo.connect((hote, port_servo))
-	socket_camera.connect((hote, port_camera))
-	socket_image.connect((hote, port_image))
+	#socket_servo.connect((hote, port_servo))
+	#socket_camera.connect((hote, port_camera))
+	#socket_image.connect((hote, port_image))
 
 	while True:
-		time.sleep(1)
+		img_jpg = pygame.image.load("out.jpg")
 		for event in pygame.event.get():
 
 			if event.type == pygame.QUIT:
 				print("Fermeture des sockets")
-				socket_image.close()
-				socket_servo.close()
-				socket_camera.close()
+				#socket_image.close()
+				#socket_servo.close()
+				#socket_camera.close()
 				sys.exit(0)
-
 		liste_key = pygame.key.get_pressed()
 		if liste_key[K_RIGHT]:
 			cmd_servo += 5
@@ -113,26 +119,29 @@ if __name__=='__main__':
 			time.sleep(0.1)
 		
 		update(screen, cmd_servo, img_jpg)
+		
 		#creation de l'information sous la forme d'un dictionnaire
 		str_cmd_servo = str(cmd_servo)  #commande angle entre 0 et 180
 		str_isEnabled = str(isEnabled)  #permet de demander une image ou non
 
-		socket_servo.send(  (str_cmd_servo).encode() )
-		socket_camera.send( (str_isEnabled).encode() )
+		#socket_servo.send(  (str_cmd_servo).encode() )
+		#socket_camera.send( (str_isEnabled).encode() )
 
 		#Reception Image
 		if isEnabled:
-			time.sleep(1)
+			cpt+=1
 			isEnabled = 0
-			data = socket_image.recv(921600)
-					
+			
+			if cpt%2:
+				data = plt.imread('img.jpg')
+			else:
+				data = plt.imread('img_2.jpg')		
+			
 			image = Image.frombytes("RGB", (640, 480), data)
 			image.save('out.jpg')
-
 			img_jpg = pygame.image.load("out.jpg")
-
+			
 			update(screen, cmd_servo, img_jpg)
 
-		pygame.diplay.update()
+		pygame.display.update()
 			
-		

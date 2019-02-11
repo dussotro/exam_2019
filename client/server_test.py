@@ -6,11 +6,11 @@ import signal
 import cv2
 
 def close_all(signal, frame):
-	socket_servo.close()
-	socket_camera.close()
+        socket_servo.close()
         socket_camera.close()
-	print("\nSIG : {} : Interruption programme...".format(signal))
-	sys.exit(0)
+        socket_image.close()
+        print("\nSIG : {} : Interruption programme...".format(signal))
+        sys.exit(0)
 
 try:
         socket_image.close()

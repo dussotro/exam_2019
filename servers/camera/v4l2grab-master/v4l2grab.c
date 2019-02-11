@@ -107,13 +107,13 @@ static unsigned int height = 480;
 static unsigned int fps = 30;
 static int continuous = 0;
 static unsigned char jpegQuality = 70;
-static char* jpegFilename = "/var/image.jpeg";
+static char* jpegFilename = NULL;
 static char* jpegFilenamePart = NULL;
 static char* deviceName = "/dev/video0";
 
 static const char* const continuousFilenameFmt = "%s_%010"PRIu32"_%"PRId64".jpg";
 
-static unsigned int ADDR = 1722021164;
+
 static unsigned int PORT_SEND = 15556;
 static unsigned int PORT_RECV = 15555;
 
@@ -126,7 +126,9 @@ int init_server(int PORT)
   // memset(&ipOfServer, '0', sizeof(ipOfServer)); // fills the struct with zeros
   // memset(dataSending, '0', sizeof(dataSending)); // fills the variable with zeros
   ipOfServer.sin_family = AF_INET; // designation of the adress type for communication ipV4
-  ipOfServer.sin_addr.s_addr = htonl(ADDR); // convertion to address byte order
+
+  ipOfServer.sin_addr.s_addr = INADDR_ANY; //htonl(ADDR); // convertion to address byte order
+
   ipOfServer.sin_port = htons(PORT); // convertion to address byte order
 
   bind(clintListn, (struct sockaddr*)&ipOfServer, sizeof(ipOfServer));
