@@ -105,12 +105,9 @@ Aller dans ..., là où se trouve le Makefile et exécutez la commande *make*. A
 
 Pour tout autre question ou évolution possible du code, veuillez vous adressez à l'adresse mail du fournisseur.
 
-<<<<<<< HEAD
 /buildroot-precompiled-2017.08/output/build/rpi-firmware-685b3ceb0a6d6d6da7b028ee409850e83fb7ede7/boot
 (C'est l'endroit ou trouverl le fichier start_x et fixup_x)
 
 _172.20.11.72_
-=======
->>>>>>> 97aec337d82ce67cf56bb04dd81a7dd0129c1379
 
 L'équipe vous remercie de la confiance accordée à leur travail.

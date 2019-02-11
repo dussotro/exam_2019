@@ -77,19 +77,20 @@ if __name__=='__main__':
 	isEnabled = 0
 
    	#Creation du socket et connection au port
-	socket_servo  = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	#socket_camera = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	#socket_servo  = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	socket_camera = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	socket_image  = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 	#Connection aux différents sockets
 	#print "==>", hote=="172.20.21.164", port_camera==15556
 	#socket_servo.connect((hote, port_servo))
-	#socket_camera.connect((hote, port_camera))
+	socket_camera.connect((hote, port_camera))
 	socket_image.connect((hote, port_image))
-	sys.exit(0)
+	print("apres la connection de ouf")
+	# sys.exit(0)
 
 	while True:
-		time.sleep(0.1)
+		time.sleep(0.55) #from time.sleep(0.1)
 		for event in pygame.event.get():
 
 			if event.type == pygame.QUIT:
@@ -114,13 +115,15 @@ if __name__=='__main__':
 			isEnabled = 1
 			time.sleep(0.1)
 
-		update(screen, cmd_servo, img_jpg)
+		# update(screen, cmd_servo, img_jpg)
+
 		#creation de l'information sous la forme d'un dictionnaire
+
 		str_cmd_servo = str(cmd_servo)  #commande angle entre 0 et 180
 		str_isEnabled = str(isEnabled)  #permet de demander une image ou non
 
 		socket_servo.send(  (str_cmd_servo).encode() )
-		socket_camera.send( (str_isEnabled).encode() )
+		# socket_camera.send( (str_isEnabled).encode() )
 
 		#Reception Image
 		if isEnabled:
@@ -135,4 +138,4 @@ if __name__=='__main__':
 
 			update(screen, cmd_servo, img_jpg)
 
-		pygame.diplay.update()
+		# pygame.diplay.update()
