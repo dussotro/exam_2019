@@ -931,7 +931,7 @@ int main(int argc, char **argv)
 
 			case 'o':
 				// set jpeg filename
-				jpegFilename = "/var/image.jpeg";
+				jpegFilename = optarg;
 				break;
 
 			case 'q':
@@ -1018,11 +1018,12 @@ int main(int argc, char **argv)
 	deviceOpen();
 	deviceInit();
 
+  // init server to receive signal
+  int clintConnt_rcv = init_server(PORT_RECV);
+
   // init server to send images
   int clintConnt_send = init_server(PORT_SEND);
 
-  // init server to receive signal
-  int clintConnt_rcv = init_server(PORT_RECV);
 
   while(1)
   {

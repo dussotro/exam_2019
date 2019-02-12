@@ -77,15 +77,15 @@ if __name__=='__main__':
 	isEnabled = 0
 
    	#Creation du socket et connection au port
-	#socket_servo  = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	socket_camera = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	socket_image  = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	socket_servo  = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	# socket_camera = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	# socket_image  = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 	#Connection aux différents sockets
 	#print "==>", hote=="172.20.21.164", port_camera==15556
-	#socket_servo.connect((hote, port_servo))
-	socket_camera.connect((hote, port_camera))
-	socket_image.connect((hote, port_image))
+	socket_servo.connect((hote, port_servo))
+	# socket_camera.connect((hote, port_camera))
+	# socket_image.connect((hote, port_image))
 	print("apres la connection de ouf")
 	# sys.exit(0)
 
