@@ -55,7 +55,6 @@ if __name__=='__main__':
 
 
     while True:
-
     	angle = clientSocket.recv(buffer_size)          #Recoit buffer
         angle = angle.decode()
         if angle == '':
