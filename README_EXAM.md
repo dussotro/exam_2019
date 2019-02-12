@@ -44,7 +44,7 @@ _sdX_ étant le port sur lequel la carte SD est branché. On peut le récupérer
 
 Dans le docker commencer par faire:
 * _./autogen_, puis
-* _./configure --host=arm-buildroot-linux-uclibcgnueabihf cc=../buildroot-precompiled-2017.08/output/host/usr/bin/arm_linux_gcc_
+* _./configure --host=arm-buildroot-linux-uclibcgnueabihf cc=../buildroot-precompiled-2017.08/output/host/usr/bin/arm-linux-gcc_
 * et enfin cross compilé.
 
 Pour ce faire, il existe la méthode brute qui consiste à modifier les gcc par le gcc du processeur **ARM** dans le Makefile.
