@@ -116,11 +116,12 @@ static const char* const continuousFilenameFmt = "%s_%010"PRIu32"_%"PRId64".jpg"
 
 static unsigned int PORT_SEND = 15556;
 static unsigned int PORT_RECV = 15555;
+static struct sockaddr_in IPOFSERVER1;
+static struct sockaddr_in IPOFSERVER2;
 
-int init_server(int PORT)
+int init_server(int PORT, struct sockaddr_in ipOfServer)
 {
   int clintListn = 0, clintConnt = 0;
-  struct sockaddr_in ipOfServer;
   clintListn = socket(AF_INET, SOCK_STREAM, 0); // connection oriented TCP protocol
   if (clintListn == -1)
     {
@@ -1031,10 +1032,10 @@ int main(int argc, char **argv)
 	deviceInit();
 
   // init server to receive signal
-  int clintConnt_rcv = init_server(PORT_RECV);
+  int clintConnt_rcv = init_server(PORT_RECV, IPOFSERVER1);
 
   // init server to send images
-  int clintConnt_send = init_server(PORT_SEND);
+  int clintConnt_send = init_server(PORT_SEND, IPOFSERVER2);
 
   while(1)
   {
