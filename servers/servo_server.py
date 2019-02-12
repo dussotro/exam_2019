@@ -4,16 +4,12 @@ import socket
 import sys
 import signal
 
-
 #Initialisation du Server
 serverSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 host = "172.20.21.164"
 port = 15554
 
 buffer_size = 256
-
-
-
 
 #Initialisation du Servo-Moteur
 GPIO.cleanup()
@@ -31,7 +27,8 @@ def close(signal, frame):
     #close and clean gpio
     p.stop()
     GPIO.cleanup()
-    print 'SIG:'+ signal + 'Program Interupted'
+    print 'SIG: '+ str(signal) + ' Program Interupted'
+    sys.exit()
 
 def bytes_to_int(bytes):
     result = 0
@@ -53,12 +50,13 @@ if __name__=='__main__':
         clientSocket, address = serverSocket.accept()
         print 'Connected Waiting for request:'
     except socket.error as msg:
-        print 'Bind fail : ' +str(msg[0]) + 'MESSAGE= '+ msg[1]
-        sys.exit()
+        print 'Bind fail : ' + str(msg[0]) + ' MESSAGE= '+ msg[1]
+        close('sys exit', None)
 
 
     while True:
     	angle = clientSocket.recv(buffer_size)          #Recoit buffer
+<<<<<<< HEAD
         angle = angle.decode()                          #Convertion string
         angle = int(angle)/10 + 5                       #Converion angle
 
@@ -68,3 +66,16 @@ if __name__=='__main__':
         except:
             print 'Change Duty cycle FAIL'
             sys.exit()
+=======
+        angle = angle.decode()
+        if angle == '':
+            pass
+        else:
+            angle = (int(angle)/180.0)*5.0 + 5.0
+            try:
+                p.ChangeDutyCycle(float(angle))
+                time.sleep(0.5)
+            except:
+                print 'Change Duty cycle FAIL'
+                close('sys exit', None)
+>>>>>>> 206ee0d23090c7a8f0e09158a818b07760a4daaa
