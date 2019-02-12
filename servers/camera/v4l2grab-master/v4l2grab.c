@@ -122,22 +122,34 @@ int init_server(int PORT)
   int clintListn = 0, clintConnt = 0;
   struct sockaddr_in ipOfServer;
   clintListn = socket(AF_INET, SOCK_STREAM, 0); // connection oriented TCP protocol
-
+  if (clintListn == -1)
+    {
+        printf("Could not create socket");
+    }
   // memset(&ipOfServer, '0', sizeof(ipOfServer)); // fills the struct with zeros
   // memset(dataSending, '0', sizeof(dataSending)); // fills the variable with zeros
   ipOfServer.sin_family = AF_INET; // designation of the adress type for communication ipV4
-
   ipOfServer.sin_addr.s_addr = INADDR_ANY; //htonl(ADDR); // convertion to address byte order
+  ipOfServer.sin_port = htons( PORT ); // convertion to address byte order
 
-  ipOfServer.sin_port = htons(PORT); // convertion to address byte order
+  if ( bind(clintListn, (struct sockaddr*)&ipOfServer, sizeof(ipOfServer)) < 0 )
+    {
+       perror("bind failed. Error");
+       return 1;
+    }
 
-  bind(clintListn, (struct sockaddr*)&ipOfServer, sizeof(ipOfServer));
   listen(clintListn, 20);
+
 
   while(1)
   {
     printf("Waiting for connection on port %d...\n", PORT);
     clintConnt = accept(clintListn, (struct sockaddr*)NULL, NULL); // accept connexion with client
+    if (clintConnt < 0)
+    {
+       perror("accept failed.");
+       return 1;
+    }
     printf("Connection established on port %d...\n", PORT);
 
   }
@@ -259,7 +271,8 @@ static void imageProcess(const void* p, struct timeval timestamp, int cli)
 
 	YUV420toYUV444(width, height, src, dst);
 
-	if(continuous==1) {
+	if(continuous==1)
+  {
 		static uint32_t img_ind = 0;
 		int64_t timestamp_long;
 		timestamp_long = timestamp.tv_sec*1e6 + timestamp.tv_usec;
@@ -271,7 +284,7 @@ static void imageProcess(const void* p, struct timeval timestamp, int cli)
 	//jpegWrite(dst,jpegFilename);
 
   // send image via server
-  int m = write(cli, dst, sizeof(dst));
+  int ret = write(cli, dst, sizeof(dst));
 
 	// free temporary image
 	free(dst);
@@ -1017,7 +1030,6 @@ int main(int argc, char **argv)
 	// open and initialize device
 	deviceOpen();
 	deviceInit();
-	
 
   // init server to receive signal
   int clintConnt_rcv = init_server(PORT_RECV);
@@ -1029,8 +1041,10 @@ int main(int argc, char **argv)
   {
     // get flagPhoto from client
     char dataRcv[sizeof(int)];
-    int n = read(clintConnt_rcv, dataRcv, sizeof(dataRcv));
+    int n = recv(clintConnt_rcv, dataRcv, sizeof(dataRcv), 0);
     int flagPhoto = atoi(dataRcv);
+
+    if (n == 0) { printf("client disconnected.");}
 
     if (flagPhoto == 1)
     {
@@ -1046,8 +1060,8 @@ int main(int argc, char **argv)
   }
 
   // close sockets
-  close(clintConnt_send);
-  close(clintConnt_rcv);
+ //  close(clintConnt_send);
+  //close(clintConnt_rcv);
 
   // close device
   deviceUninit();
