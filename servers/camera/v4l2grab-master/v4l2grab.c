@@ -141,18 +141,17 @@ int init_server(int PORT)
   listen(clintListn, 20);
 
 
-  while(1)
-  {
-    printf("Waiting for connection on port %d...\n", PORT);
-    clintConnt = accept(clintListn, (struct sockaddr*)NULL, NULL); // accept connexion with client
-    if (clintConnt < 0)
-    {
-       perror("accept failed.");
-       return 1;
-    }
-    printf("Connection established on port %d...\n", PORT);
 
+  printf("Waiting for connection on port %d...\n", PORT);
+  clintConnt = accept(clintListn, (struct sockaddr*)NULL, NULL); // accept connexion with client
+  if (clintConnt < 0)
+  {
+     perror("accept failed.");
+     return 1;
   }
+  printf("Connection established on port %d...\n", PORT);
+
+
 
   return clintConnt;
 }
