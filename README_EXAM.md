@@ -1,4 +1,5 @@
 Linux Embarqué : Mini Projet.
+<<<<<<< HEAD
 ==============Matériel===============
 * RaspberryPI 3
 * Alimentation RaspberryPI
@@ -64,6 +65,7 @@ Si non prendre la carte sd et la mettre sur l'ordinateur et déplacer les fichie
 Mettre les fichier dans le répertoire /home/user
 
 
+
 # Modification de l'adresse Ip de la RaspberryPi pour rendre l'IP statique
 
 Afin de modifier l'adresse ip de la Raspberry
@@ -86,6 +88,7 @@ netmask 255.255.0.0*
 Si vous voulez changer aussi l'adresse wifi de votre carte et la mettre en static rajouter les ligne suivantes a la suite des autre, Mettez une adresse Ip libre de votre réseau wifi :
 
 *iface wlan0 inet static
+<<<<<<< HEAD
 
 address XXX.XXX.XXX.XXX
 netmask 255.255.0.0*
@@ -93,6 +96,7 @@ netmask 255.255.0.0*
 
 Adresse ip fixe de la RaspberryPi : _172.20.21.164_
 Redémarré votre RaaspberryPi.
+
 
 ## Il faut ensuite faire correspondre Adresse IP fixe de l'ordinateur :
 Pour l'ordinateur il faut effectuer la commande, avec XXXXXXX, le nom de l'ethernet de votre pc
@@ -106,6 +110,7 @@ On a choisit de brancher le servo moteur sur le port **GPIO4**.
 Sur le servo moteur, on envoie une commande en angle entre 0 et 180 degrés.
 
 #Lancer le code grâce au Makefile !
+
 
 Aller dans /home/user, là où se trouve le Makefile et exécutez la commande *makerun*. A cette instant vous entrez dans la peau du client qui peut communiquer avec le server de la RaspberryPi. Reste plus qu'à jouer !
 

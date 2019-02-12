@@ -27,7 +27,7 @@ def close(signal, frame):
     #close and clean gpio
     p.stop()
     GPIO.cleanup()
-    print 'SIG:'+ str(signal) + 'Program Interupted'
+    print 'SIG: '+ str(signal) + ' Program Interupted'
     sys.exit()
 
 def bytes_to_int(bytes):
@@ -46,22 +46,16 @@ if __name__=='__main__':
 
     try:
         serverSocket.bind((host, port))
-<<<<<<< HEAD
-        print 'Connected Waiting for request:'
-        serverSocket.listen(5)
-        clientSocket, address = serverSocket.accept()   #Accepte connection
-=======
         serverSocket.listen(5)
         clientSocket, address = serverSocket.accept()
         print 'Connected Waiting for request:'
->>>>>>> dd6850e9e176fc8ddd0fff2fde6a22a7caf417e6
     except socket.error as msg:
-        print 'Bind fail : ' + str(msg[0]) + 'MESSAGE= '+ msg[1]
+        print 'Bind fail : ' + str(msg[0]) + ' MESSAGE= '+ msg[1]
         close('sys exit', None)
 
 
     while True:
-<<<<<<< HEAD
+
     	angle = clientSocket.recv(buffer_size)          #Recoit buffer
         angle = angle.decode()
         if angle == '':
@@ -74,15 +68,3 @@ if __name__=='__main__':
             except:
                 print 'Change Duty cycle FAIL'
                 close('sys exit', None)
-=======
-    	  angle = clientSocket.recv(buffer_size)          #Recoit buffer
-        angle = angle.decode()                          #Convertion string
-        angle = int(angle)/10 + 5                       #Converion angle
-
-        try:
-            p.ChangeDutyCycle(angle)
-            time.sleep(0.5)
-        except:
-            print 'Change Duty cycle FAIL'
-            sys.exit()
->>>>>>> dd6850e9e176fc8ddd0fff2fde6a22a7caf417e6
