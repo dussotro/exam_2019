@@ -127,5 +127,9 @@ Aller dans /home/user, là où se trouve le Makefile et exécutez la commande *m
 
 Pour tout autre questions ou évolutions possibles du code, veuillez vous adressez à l'adresser au personnes en question sur le Github.
 
+/buildroot-precompiled-2017.08/output/build/rpi-firmware-685b3ceb0a6d6d6da7b028ee409850e83fb7ede7/boot
+(C'est l'endroit ou trouverl le fichier start_x et fixup_x)
+
+_172.20.11.72_
 
 L'équipe vous remercie de la confiance accordée à leur travail.
