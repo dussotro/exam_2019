@@ -9,6 +9,7 @@ Notre système se compose de 3 fichiers:
 * v4l2grab        (RaspberryPI)
 * Makefile        (RaspberryPI)
 * client.py       (Ordinateur)
+* Makefile        (Ordianteur)
 
 Si vous avez déja une carte micro SD avec un OS, il vous suffit :
 * de copier les fichiers _servo_server.py_ et _v4l2grab_
