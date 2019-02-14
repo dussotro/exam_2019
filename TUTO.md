@@ -8,6 +8,8 @@ Linux Embarqué : Mini Projet.
 * Caméra RaspberryPI
 * Câbles de branchement
 
+
+
 =========Installations requises======
 * Docker      *sudo apt install docker*
 * MatplotLib  *sudo pip install matplotlib*
@@ -85,7 +87,6 @@ netmask 255.255.0.0*
 Si vous voulez changer aussi l'adresse wifi de votre carte et la mettre en static rajouter les ligne suivantes a la suite des autre, Mettez une adresse Ip libre de votre réseau wifi :
 
 *iface wlan0 inet static
-<<<<<<< HEAD
 
 address XXX.XXX.XXX.XXX
 netmask 255.255.0.0*
@@ -119,10 +120,19 @@ Aller dans /home/user, là où se trouve le Makefile et exécutez la commande *m
 * Pour prendre une photo il faut appuyer sur la touche *s* de votre clavier pour sauvegarder l'image sur votre ordinateur et l'afficher. L'image est écrasée d'un appui à l'autre sur la touche *s*.
 
 
+<<<<<<< HEAD:TUTO.md
 
 
 
 Pour tout autre questions ou évolutions possibles du code, veuillez vous adressez à l'adresser au personnes en question sur le Github.
 
+
+
+Pour tout autre questions ou évolutions possibles du code, veuillez vous adressez à l'adresser au personnes en question sur le Github.
+
+/buildroot-precompiled-2017.08/output/build/rpi-firmware-685b3ceb0a6d6d6da7b028ee409850e83fb7ede7/boot
+(C'est l'endroit ou trouverl le fichier start_x et fixup_x)
+
+_172.20.11.72_
 
 L'équipe vous remercie de la confiance accordée à leur travail.
