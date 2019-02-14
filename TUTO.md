@@ -1,5 +1,4 @@
 Linux Embarqué : Mini Projet.
-<<<<<<< HEAD
 ==============Matériel===============
 * RaspberryPI 3
 * Alimentation RaspberryPI
@@ -8,8 +7,6 @@ Linux Embarqué : Mini Projet.
 * Adaptateur usb liaison série
 * Caméra RaspberryPI
 * Câbles de branchement
-
-
 
 =========Installations requises======
 * Docker      *sudo apt install docker*
