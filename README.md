@@ -1,23 +1,38 @@
-# EMBSYS
+Ce projet s'inscrit dans le cadre d'un projet réalisé durant notre dernière année d'école d'ingénieur à L'ENSTA Bretagne.
 
-This repository stores my lectures and labs on GNU/Linux for embedded systems
-with some reminders in system programming.
+Dans ce Github vous trouverez:
+* Un fichier _TUTO.md_ montrant comment nous avons réalisé notre projet (docker, flashage, ,cross compilation, IP, ...)
+* Les fichiers à télécharger et à copier sur votre RaspberryPI.
 
-## Lectures
+Notre système se compose de 5 fichiers importants:
+* servo_server.py (RaspberryPI)
+* v4l2grab        (RaspberryPI)
+* Makefile        (RaspberryPI)
+* client.py       (Ordinateur)
+* Makefile        (Ordianteur)
 
-Lectures are separated in several parts:
+================= CAS D'UNE RAPSBERRYPI AVEC OS ============
+Si vous avez déja une carte micro SD avec un OS, il vous suffit :
+* de copier le dossier _server_ sur votre RaspberryPi contenant:
+* _servo_server.py_
+* _v4l2grab_
+* Makefile
 
-  * Introduction : licenses, POSIX, opensource vs free software, ...
-  * Linux System Programming : processus, pthread, signals, mutex, IPC, ...
-  * Kernel architectures and Linux module programming
-  * Bus and communication devices : PCI, I2C, RS232, ...
-  * Memory and file system
-  * Embedded systems tools and compilation steps : busybox, buildroot, yocto, uboot
+Et de copier le dossier  sur votre ordinateur personnel, contenant:
+* _client.py_
+* Makefile
 
-## Labs
+Il vous rest plus qu'à lancer la simulation !
+(*cf fin du "TUTO.md" pour le lancement et les commande du système*).
 
-Several exercises are available :
 
-  * GNU/Linux System Programming
-  * Embedded system with RPI3
-  * Usefool Tools (autotools, docker, git, ...)
+================= CAS D'UNE RAPSBERRYPI SANS OS ============
+
+Si vous voulez flasher votre carte par vos propre moyen, un tuto vous est mis à disposition (*cf début "TUTO.md"*).
+
+
+Pour toutes autres questions ou demandes, n'hésitez pas à nous contacter.
+
+Amusez-vous bien !
+
+Elias & Evann & Romain & Victor.
