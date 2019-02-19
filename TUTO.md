@@ -60,12 +60,14 @@ Dans le docker commencer par faire:
 * _./configure --host=arm-buildroot-linux-uclibcgnueabihf cc=../buildroot-precompiled-2017.08/output/host/usr/bin/arm-linux-gcc_
 * et enfin cross compilé.
 
+
 #Copier Fichier dans la RaspberryPi
 Prendre la carte sd et la mettre sur l'ordinateur et déplacer les fichier à la main.
 
 Mettre les fichiers dans le répertoire _/home/user_, pour cela faite:
 **$ cd /root/home/user**
-cree un dossier server qui aura les fichiers:
+
+créez un dossier server qui aura les fichiers:
 * servo_server.py
 * v4l2grab (fichier cross compilé)
 * Makefile (vous pouvez prendre celui du Github)
@@ -143,15 +145,11 @@ Et ensuite *make run* pour lancer les servers.
 A cette instant les serveurs sont lancés.
 
 Sur votre ordianteur, aller dans le dossier client et lancer la commande, *make*. A cette instant vous entrez dans la peau du client qui peut communiquer avec le server de la RaspberryPi.
-Reste plus qu'à jouer !
-
 
 # Règles du jeu ! Commandes chez le client
 
 * Pour changer l'angle de la caméra il vous faudra appuyer sur les touches flèches *droite* et *gauche*. L'angle s'affiche sur l'écran pour savoir ou vous en êtes.
 
 * Pour prendre une photo il faut appuyer sur la touche *s* de votre clavier pour sauvegarder l'image sur votre ordinateur et l'afficher. L'image est écrasée d'un appui à l'autre sur la touche *s*.
-
-
 
 L'équipe vous remercie de la confiance accordée à leur travail.

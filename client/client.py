@@ -62,6 +62,7 @@ signal.signal(signal.SIGTERM, close_all) #kill python
 data = np.zeros([640, 480, 3])
 image = Image.frombytes("RGB", (640, 480), data)
 image.save('out.jpg')
+img_jpg = pygame.image.load("out.jpg")
 
 if __name__=='__main__':
 
@@ -127,9 +128,12 @@ if __name__=='__main__':
 
 		#Reception Image
 		if isEnabled:
-			time.sleep(1)
+			time.sleep(2)
 			isEnabled = 0
+
 			data = socket_image.recv(921600)
+			print(len(data))
+			print(data)
 
 			image = Image.frombytes("RGB", (640, 480), data)
 			image.save('out.jpg')
@@ -138,4 +142,4 @@ if __name__=='__main__':
 
 			update(screen, cmd_servo, img_jpg)
 
-		# pygame.diplay.update()
+		pygame.display.update()
