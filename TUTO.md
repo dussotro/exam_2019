@@ -102,10 +102,12 @@ Il faut ensuite remplacer la ligne
 
 par
 
-*iface eth0 inet static
-
-address 172.20.21.164
-netmask 255.255.0.0*
+*auto eth0
+allow-hotplug eth0
+iface eth0 inet static
+  address 172.20.21.164
+  netmask 255.255.0.0
+  geteway 172.20.255.255*
 
 Si vous voulez changer aussi l'adresse wifi de votre carte et la mettre en static rajouter les ligne suivantes à la suite des autres. Mettez une adresse Ip libre de votre réseau wifi :
 
