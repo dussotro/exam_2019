@@ -113,7 +113,7 @@ static char* deviceName = "/dev/video0";
 
 static const char* const continuousFilenameFmt = "%s_%010"PRIu32"_%"PRId64".jpg";
 
-
+static unsigned int IMAGE_SIZE = 921600;
 static unsigned int PORT_SEND = 15556;
 static unsigned int PORT_RECV = 15555;
 static struct sockaddr_in IPOFSERVER1;
@@ -284,7 +284,11 @@ static void imageProcess(const void* p, struct timeval timestamp, int cli)
 	//jpegWrite(dst,jpegFilename);
 
   // send image via server
-  int ret = write(cli, dst, sizeof(dst));
+  static int sent = 0;
+  while (sent < IMAGE_SIZE)
+  {
+    sent = sent + send(cli, dst, IMAGE_SIZE, 0);
+  }
 
 	// free temporary image
 	free(dst);
@@ -1041,9 +1045,11 @@ int main(int argc, char **argv)
     // get flagPhoto from client
     char dataRcv[sizeof(int)];
     int n = recv(clintConnt_rcv, dataRcv, sizeof(dataRcv), 0);
+    while (n < sizeof(int))
+    {
+      n += recv(clintConnt_rcv, dataRcv, sizeof(dataRcv), 0);
+    }
     int flagPhoto = atoi(dataRcv);
-
-    if (n == 0) { printf("client disconnected.");}
 
     if (flagPhoto == 1)
     {
@@ -1059,8 +1065,8 @@ int main(int argc, char **argv)
   }
 
   // close sockets
- //  close(clintConnt_send);
-  //close(clintConnt_rcv);
+  close(clintConnt_send);
+  close(clintConnt_rcv);
 
   // close device
   deviceUninit();
