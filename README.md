@@ -5,6 +5,7 @@ Dans ce Github vous trouverez:
 * Les fichiers à télécharger et à copier sur votre RaspberryPI.
 
 Notre système se compose de 5 fichiers importants:
+
 * servo_server.py (RaspberryPI)
 * v4l2grab        (RaspberryPI)
 * Makefile        (RaspberryPI)
@@ -34,5 +35,6 @@ Si vous voulez flasher votre carte par vos propre moyen, un tuto vous est mis à
 Pour toutes autres questions ou demandes, n'hésitez pas à nous contacter.
 
 Amusez-vous bien !
+
 
 Elias & Evann & Romain & Victor.
