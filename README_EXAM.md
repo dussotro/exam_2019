@@ -9,14 +9,13 @@ Linux Embarqué : Mini Projet.
 * Caméra RaspberryPI
 * Câbles de branchement
 
-
-
 =========Installations requises======
 * Docker      *sudo apt install docker*
 * MatplotLib  *sudo pip install matplotlib*
 * Pygame      *sudo pip install pygame*
 * PIL         *sudo pip install Pillow*
 * GTKterm     *sudo apt-get install gtkterm*
+
 * librairies libv4l & libjpeg *sudo apt install libjpeg-dev libv4l-dev autoconf automake libtool*
 =====================================
 
@@ -110,10 +109,17 @@ On a choisit de brancher le servo moteur sur le port **GPIO4**.
 Sur le servo moteur, on envoie une commande en angle entre 0 et 180 degrés.
 
 #Lancer le code grâce au Makefile !
+# Caméra
 
+Pour crée la sortie vidéo de votre caméra, il faut lancer la commande *modprobe bcm2845-v4l2*. Cette commnde va créee votre sortie vidéo qui sera présente dans le répertoire _/dev/video0_.
+
+#Lancer le code grâce au Makefile !
 
 Aller dans /home/user, là où se trouve le Makefile et exécutez la commande *makerun*. A cette instant vous entrez dans la peau du client qui peut communiquer avec le server de la RaspberryPi. Reste plus qu'à jouer !
+Aller dans /home/user, là où se trouve le Makefile et exécutez la commande *make*, pour installer les librairies qu'il faut.
+Puis lancer la commande *make run* pour lancer le programme d'aquisition et de contrôle de caméra.
 
+A cette instant vous entrez dans la peau du client qui peut communiquer avec le server de la RaspberryPi. Reste plus qu'à jouer !
 
 # Règles du jeu ! Commandes chez le client
 
