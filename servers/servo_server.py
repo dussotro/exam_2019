@@ -56,17 +56,6 @@ if __name__=='__main__':
 
     while True:
     	angle = clientSocket.recv(buffer_size)          #Recoit buffer
-<<<<<<< HEAD
-        angle = angle.decode()                          #Convertion string
-        angle = int(angle)/10 + 5                       #Converion angle
-
-        try:
-            p.ChangeDutyCycle(angle)
-            time.sleep(0.5)
-        except:
-            print 'Change Duty cycle FAIL'
-            sys.exit()
-=======
         angle = angle.decode()
         if angle == '':
             pass
@@ -78,4 +67,3 @@ if __name__=='__main__':
             except:
                 print 'Change Duty cycle FAIL'
                 close('sys exit', None)
->>>>>>> 206ee0d23090c7a8f0e09158a818b07760a4daaa

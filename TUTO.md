@@ -1,5 +1,4 @@
 Linux Embarqué : Mini Projet.
-<<<<<<< HEAD
 ==============Matériel===============
 * RaspberryPI 3
 * Alimentation RaspberryPI
@@ -8,8 +7,6 @@ Linux Embarqué : Mini Projet.
 * Adaptateur usb liaison série
 * Caméra RaspberryPI
 * Câbles de branchement
-
-
 
 =========Installations requises======
 * Docker      *sudo apt install docker*
@@ -42,16 +39,14 @@ Puis on Flash l'image sur la carte SD grâce à la commande _dd_
 
 _sdX_ étant le port sur lequel la carte SD est branché. On peut le récupérer a l'aide de _dmesg_.
 
+#Cross Compilation (Dans le docker)
+
+Commande à réaliser pour cross compiler votre fichier si vous voulez modifier le fichier C ou en créer un nouveau.
+
 Dans le docker commencer par faire:
 * _./autogen_, puis
 * _./configure --host=arm-buildroot-linux-uclibcgnueabihf cc=../buildroot-precompiled-2017.08/output/host/usr/bin/arm_linux_gcc_
 * et enfin cross compilé.
-
-Pour ce faire, il existe la méthode brute qui consiste à modifier les gcc par le gcc du processeur **ARM** dans le Makefile.
-
-#Cross Compilation (Dans le docker)
-
-Commande à réaliser pour cross compiler votre fichier si vous voulez modifier le fichier C ou en créer un nouveau.
 
 *../../buildroot-precompiled-2017.08/output/host/usr/bin/arm-linux-gcc -Wall nom_du_fichier.c -o nom_du_fichier.o*
 
@@ -63,8 +58,6 @@ Pour cela aller sur votre ordinateur, ouvrez gtkterm et configurer le sur le bon
 Si non prendre la carte sd et la mettre sur l'ordinateur et déplacer les fichier a la main.
 
 Mettre les fichier dans le répertoire /home/user
-
-
 
 # Modification de l'adresse Ip de la RaspberryPi pour rendre l'IP statique
 
@@ -88,7 +81,6 @@ netmask 255.255.0.0*
 Si vous voulez changer aussi l'adresse wifi de votre carte et la mettre en static rajouter les ligne suivantes a la suite des autre, Mettez une adresse Ip libre de votre réseau wifi :
 
 *iface wlan0 inet static
-<<<<<<< HEAD
 
 address XXX.XXX.XXX.XXX
 netmask 255.255.0.0*
@@ -99,9 +91,11 @@ Redémarré votre RaaspberryPi.
 
 
 ## Il faut ensuite faire correspondre Adresse IP fixe de l'ordinateur :
-Pour l'ordinateur il faut effectuer la commande, avec XXXXXXX, le nom de l'ethernet de votre pc
+Pour l'ordinateur il faut effectuer la commande,
 
 *ifconfig XXXXXXX 172.20.11.72*
+
+ avec XXXXXXX, le nom de l'ethernet de votre pc
 
 # Servo Moteur
 
@@ -109,11 +103,12 @@ On a choisit de brancher le servo moteur sur le port **GPIO4**.
 
 Sur le servo moteur, on envoie une commande en angle entre 0 et 180 degrés.
 
-#Lancer le code grâce au Makefile !
+#Lancer le code grâce aux Makefiles !
 
 
-Aller dans /home/user, là où se trouve le Makefile et exécutez la commande *makerun*. A cette instant vous entrez dans la peau du client qui peut communiquer avec le server de la RaspberryPi. Reste plus qu'à jouer !
+Sur la RaspberryPI, aller dans /home/user, là où se trouve le Makefile et exécutez la commande *make* et ensuite *make run*. A cette instant les serveurs sont lancés.
 
+Sur votre ordianteur, aller dans le fichier client et lancer la commande, *make*. A cette instant vous entrez dans la peau du client qui peut communiquer avec le server de la RaspberryPi. Reste plus qu'à jouer !
 
 # Règles du jeu ! Commandes chez le client
 
@@ -125,7 +120,6 @@ Aller dans /home/user, là où se trouve le Makefile et exécutez la commande *m
 
 
 
-Pour tout autre questions ou évolutions possibles du code, veuillez vous adressez à l'adresser au personnes en question sur le Github.
 
 /buildroot-precompiled-2017.08/output/build/rpi-firmware-685b3ceb0a6d6d6da7b028ee409850e83fb7ede7/boot
 (C'est l'endroit ou trouverl le fichier start_x et fixup_x)
