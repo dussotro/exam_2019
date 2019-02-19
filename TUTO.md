@@ -135,7 +135,7 @@ Sur le servo moteur, on envoie une commande en angle entre 0 et 180 degrés.
 # Caméra
 A NE PAS FAIRE CAR DEJA PRESENT DANS LE MAKEFILE.
 
-Pour crée la sortie vidéo de votre caméra, il faut lancer la commande *modprobe bcm2845-v4l2* sur le terminal gtkterm.
+Pour crée la sortie vidéo de votre caméra, il faut lancer la commande *modprobe bcm2835-v4l2* sur le terminal gtkterm.
 Cette commnde va créee votre sortie vidéo qui sera présente dans le répertoire _/dev/video0_.
 
 # Lancement du code
