@@ -1,4 +1,5 @@
 Linux Embarqué : Mini Projet.
+
 ==============Matériel===============
 * RaspberryPI 3
 * Alimentation RaspberryPI
@@ -7,6 +8,8 @@ Linux Embarqué : Mini Projet.
 * Adaptateur usb liaison série
 * Caméra RaspberryPI
 * Câbles de branchement
+* Adaptateur usb liaison série
+
 
 =========Installations requises======
 * Docker      *sudo apt install docker*
@@ -16,6 +19,15 @@ Linux Embarqué : Mini Projet.
 * GTKterm     *sudo apt-get install gtkterm*
 * librairies libv4l & libjpeg *sudo apt install libjpeg-dev libv4l-dev autoconf automake libtool*
 =====================================
+
+# DEROULEMENT
+* Flashage de la Raspberry
+* Cross compilation
+* Copie des dossier sur la Raspberry et votre Ordinateur
+* Modification Adresse IP (RAPSBERRYPI et ORDINATEUR)
+* Branchement Servo moteur & caméra
+* Commande à lancer
+* Règle du jeu
 
 # Flashage de la Raspberry
 
@@ -47,23 +59,26 @@ Dans le docker commencer par faire:
 * _./autogen_, puis
 * _./configure --host=arm-buildroot-linux-uclibcgnueabihf cc=../buildroot-precompiled-2017.08/output/host/usr/bin/arm-linux-gcc_
 * et enfin cross compilé.
-
 *../../buildroot-precompiled-2017.08/output/host/usr/bin/arm-linux-gcc -Wall nom_du_fichier.c -o nom_du_fichier.o*
 
 #Copier Fichier dans la RaspberryPi
+Prendre la carte sd et la mettre sur l'ordinateur et déplacer les fichier à la main.
 
-Il faut copier votre binaire dans la Raspberry Pi.
-Pour cela aller sur votre ordinateur, ouvrez gtkterm et configurer le sur le bon port série *ttyUSB0* par exemple (check on _dmesg | grep tty_). Mettre de Baud rate à 155200.
+Mettre les fichiers dans le répertoire _/home/user_, pour cela faite:
+**$ cd /root/home/user**
+et copier les fichiers.  
 
-Si non prendre la carte sd et la mettre sur l'ordinateur et déplacer les fichier a la main.
-
-Mettre les fichier dans le répertoire /home/user
 
 # Modification de l'adresse Ip de la RaspberryPi pour rendre l'IP statique
 
 Afin de modifier l'adresse ip de la Raspberry
 Connecter vous en liaison série avec votre RaspberryPi
-il faut effectuer les commandes suivantes :
+
+Pour cela, brancher la Raspberry en liaison série avec votre ordinateur. Aller sur votre ordinateur, ouvrez _gtkterm_ et configurer le sur le bon port série *ttyUSB0* par exemple (check on _dmesg | grep tty_).
+Mettre de Baud rate à 155200.
+
+Par la suite il faut effectuer les commandes suivantes :
+
 
 **$ sudo nano /etc/network/interfaces**
 
@@ -78,12 +93,12 @@ par
 address 172.20.21.164
 netmask 255.255.0.0*
 
-Si vous voulez changer aussi l'adresse wifi de votre carte et la mettre en static rajouter les ligne suivantes a la suite des autre, Mettez une adresse Ip libre de votre réseau wifi :
+Si vous voulez changer aussi l'adresse wifi de votre carte et la mettre en static rajouter les ligne suivantes à la suite des autres. Mettez une adresse Ip libre de votre réseau wifi :
 
-*iface wlan0 inet static
+*iface wlan0 inet static*
 
-address XXX.XXX.XXX.XXX
-netmask 255.255.0.0*
+*address XXX.XXX.XXX.XXX*
+*netmask 255.255.0.0*
 
 
 Adresse ip fixe de la RaspberryPi : _172.20.21.164_
@@ -103,12 +118,21 @@ On a choisit de brancher le servo moteur sur le port **GPIO4**.
 
 Sur le servo moteur, on envoie une commande en angle entre 0 et 180 degrés.
 
-#Lancer le code grâce aux Makefiles !
+# Caméra
+A NE PAS FAIRE CAR DEJA PRESENT DANS LE MAKEFILE.
 
+Pour crée la sortie vidéo de votre caméra, il faut lancer la commande *modprobe bcm2845-v4l2* sur le terminal gtkterm.
+Cette commnde va créee votre sortie vidéo qui sera présente dans le répertoire _/dev/video0_.
 
-Sur la RaspberryPI, aller dans /home/user, là où se trouve le Makefile et exécutez la commande *make* et ensuite *make run*. A cette instant les serveurs sont lancés.
+# Lancement du code
 
-Sur votre ordianteur, aller dans le fichier client et lancer la commande, *make*. A cette instant vous entrez dans la peau du client qui peut communiquer avec le server de la RaspberryPi. Reste plus qu'à jouer !
+Sur la RaspberryPI, aller dans _/home/user/server_, là où se trouve le Makefile et exécutez la commande *make*, cette commande vas installer les librairie nécessaire pour lire correctement les images recu par la caméra.
+Et ensuite *make run* pour lancer les servers.
+A cette instant les serveurs sont lancés.
+
+Sur votre ordianteur, aller dans le dossier client et lancer la commande, *make* et ensuite *make run*. A cette instant vous entrez dans la peau du client qui peut communiquer avec le server de la RaspberryPi.
+Reste plus qu'à jouer !
+
 
 # Règles du jeu ! Commandes chez le client
 
@@ -116,14 +140,7 @@ Sur votre ordianteur, aller dans le fichier client et lancer la commande, *make*
 
 * Pour prendre une photo il faut appuyer sur la touche *s* de votre clavier pour sauvegarder l'image sur votre ordinateur et l'afficher. L'image est écrasée d'un appui à l'autre sur la touche *s*.
 
-
-
-
-
-
 /buildroot-precompiled-2017.08/output/build/rpi-firmware-685b3ceb0a6d6d6da7b028ee409850e83fb7ede7/boot
 (C'est l'endroit ou trouverl le fichier start_x et fixup_x)
-
-_172.20.11.72_
 
 L'équipe vous remercie de la confiance accordée à leur travail.
