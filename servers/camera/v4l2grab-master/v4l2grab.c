@@ -1030,7 +1030,6 @@ int main(int argc, char **argv)
 	// open and initialize device
 	deviceOpen();
 	deviceInit();
-
   // init server to receive signal
   int clintConnt_rcv = init_server(PORT_RECV, IPOFSERVER1);
 
