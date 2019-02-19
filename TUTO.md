@@ -57,7 +57,7 @@ Commande à réaliser pour cross compiler votre fichier si vous voulez modifier 
 
 Dans le docker commencer par faire:
 * _./autogen_, puis
-* _./configure --host=arm-buildroot-linux-uclibcgnueabihf cc=../buildroot-precompiled-2017.08/output/host/usr/bin/arm_linux_gcc_
+* _./configure --host=arm-buildroot-linux-uclibcgnueabihf cc=../buildroot-precompiled-2017.08/output/host/usr/bin/arm-linux-gcc_
 * et enfin cross compilé.
 *../../buildroot-precompiled-2017.08/output/host/usr/bin/arm-linux-gcc -Wall nom_du_fichier.c -o nom_du_fichier.o*
 
