@@ -1,7 +1,4 @@
-default: install
-
-install:
-	sudo apt install libjpeg-dev libv4l-dev autoconf automake libtool
+default: run
 
 run:
   python client.py

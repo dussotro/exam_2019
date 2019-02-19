@@ -59,9 +59,8 @@ Commande à réaliser pour cross compiler votre fichier si vous voulez modifier 
 
 Dans le docker commencer par faire:
 * _./autogen_, puis
-* _./configure --host=arm-buildroot-linux-uclibcgnueabihf cc=../buildroot-precompiled-2017.08/output/host/usr/bin/arm_linux_gcc_
+* _./configure --host=arm-buildroot-linux-uclibcgnueabihf cc=../buildroot-precompiled-2017.08/output/host/usr/bin/arm-linux-gcc_
 * et enfin cross compilé.
-*../../buildroot-precompiled-2017.08/output/host/usr/bin/arm-linux-gcc -Wall nom_du_fichier.c -o nom_du_fichier.o*
 
 #Copier Fichier dans la RaspberryPi
 
@@ -69,8 +68,21 @@ Prendre la carte sd et la mettre sur l'ordinateur et déplacer les fichier à la
 
 Mettre les fichiers dans le répertoire _/home/user_, pour cela faite:
 **$ cd /root/home/user**
-et copier les fichiers.  
+cree un dossier server qui aura les fichiers:
+* servo_server.py
+* v4l2grab (fichier cross compilé)
+* Makefile (vous pouvez prendre celui du Github)
 
+Il faut aussi que vous copier les fichier sur la 1ère partition de la carte SD:
+* _start_x.elf_
+* _fixup_x.dat_
+Utilisé la commande _cp_ ou faite le à la main.
+Vous pouvez retrouver ces fichier dans le docker ici: */buildroot-precompiled-2017.08/output/build/rpi-firmware-685b3ceb0a6d6d6da7b028ee409850e83fb7ede7/boot*
+
+
+Modifier le fichier *config.txt* de la 1ère partition en modifiant:
+**start_x=1
+gpu_mem=128**
 
 # Modification de l'adresse Ip de la RaspberryPi pour rendre l'IP statique
 
@@ -78,7 +90,7 @@ Afin de modifier l'adresse ip de la Raspberry
 Connecter vous en liaison série avec votre RaspberryPi
 
 Pour cela, brancher la Raspberry en liaison série avec votre ordinateur. Aller sur votre ordinateur, ouvrez _gtkterm_ et configurer le sur le bon port série *ttyUSB0* par exemple (check on _dmesg | grep tty_).
-Mettre de Baud rate à 155200.
+Mettre de Baud rate à 115200.
 
 Par la suite il faut effectuer les commandes suivantes :
 
@@ -132,7 +144,7 @@ Sur la RaspberryPI, aller dans _/home/user/server_, là où se trouve le Makefil
 Et ensuite *make run* pour lancer les servers.
 A cette instant les serveurs sont lancés.
 
-Sur votre ordianteur, aller dans le dossier client et lancer la commande, *make* et ensuite *make run*. A cette instant vous entrez dans la peau du client qui peut communiquer avec le server de la RaspberryPi.
+Sur votre ordianteur, aller dans le dossier client et lancer la commande, *make*. A cette instant vous entrez dans la peau du client qui peut communiquer avec le server de la RaspberryPi.
 Reste plus qu'à jouer !
 
 # Règles du jeu ! Commandes chez le client
@@ -142,10 +154,6 @@ Reste plus qu'à jouer !
 * Pour prendre une photo il faut appuyer sur la touche *s* de votre clavier pour sauvegarder l'image sur votre ordinateur et l'afficher. L'image est écrasée d'un appui à l'autre sur la touche *s*.
 
 
-
-
-/buildroot-precompiled-2017.08/output/build/rpi-firmware-685b3ceb0a6d6d6da7b028ee409850e83fb7ede7/boot
-(C'est l'endroit ou trouverl le fichier start_x et fixup_x)
 
 
 L'équipe vous remercie de la confiance accordée à leur travail.
