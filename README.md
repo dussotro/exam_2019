@@ -13,10 +13,7 @@ Notre système se compose de 5 fichiers importants:
 * Makefile        (Ordianteur)
 
 ================= CAS D'UNE RAPSBERRYPI AVEC OS ============
-<<<<<<< HEAD
-=======
 
->>>>>>> 2f95a4eb0a352e5cd0ac1cb5835d65959f995666
 Si vous avez déja une carte micro SD avec un OS, il vous suffit :
 * de copier le dossier _server_ sur votre RaspberryPi contenant:
 * _servo_server.py_
