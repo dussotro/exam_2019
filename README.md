@@ -13,6 +13,7 @@ Notre système se compose de 5 fichiers importants:
 * Makefile        (Ordianteur)
 
 ================= CAS D'UNE RAPSBERRYPI AVEC OS ============
+
 Si vous avez déja une carte micro SD avec un OS, il vous suffit :
 * de copier le dossier _server_ sur votre RaspberryPi contenant:
 * _servo_server.py_
@@ -24,12 +25,12 @@ Et de copier le dossier  sur votre ordinateur personnel, contenant:
 * Makefile
 
 Il vous rest plus qu'à lancer la simulation !
-(*cf fin du "TUTO.md" pour le lancement et les commande du système*).
+(*"TUTO.md" copie des fichiers et règles du jeu*).
 
 
 ================= CAS D'UNE RAPSBERRYPI SANS OS ============
 
-Si vous voulez flasher votre carte par vos propre moyen, un tuto vous est mis à disposition (*cf début "TUTO.md"*).
+Si vous voulez flasher votre carte par vos propre moyen, un tuto vous est mis à disposition (*suivre depuis le début "TUTO.md"*).
 
 
 Pour toutes autres questions ou demandes, n'hésitez pas à nous contacter.

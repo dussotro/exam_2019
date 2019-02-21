@@ -297,7 +297,8 @@ static void imageProcess(const void* p, struct timeval timestamp, int cli)
 /**
 	read single frame
 */
-static int frameRead(int cli)
+static int
+(int cli)
 {
 	struct v4l2_buffer buf;
 #ifdef IO_USERPTR

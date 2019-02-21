@@ -33,21 +33,24 @@ Linux Embarqué : Mini Projet.
 
 On récupère le docker :
 
-**$ docker pull pblottiere/embsys-rpi3-buildroot-video
+**$ docker pull pblottiere/embsys-rpi3-buildroot-video**
 
-$ docker run -it pblottiere/embsys-rpi3-buildroot-video /bin/bash
+**$ docker run -it pblottiere/embsys-rpi3-buildroot-video /bin/bash**
 
-$ docker# cd /root
+**$ docker# cd /root**
 
-$ docker# tar zxvf buildroot-precompiled-2017.08.tar.gz**
+**$ docker# tar zxvf buildroot-precompiled-2017.08.tar.gz**
 
 On copie l'image, qui sera flasher sur la carte, sur notre machine hôte depuis le docker.
+Ouvrez un autre terminal ou vous serez en dehors du docker et executez la commande suivante:
 
 **$ docker cp <container_id>:/root/buildroot-precompiled-2017.08/output/images/sdcard.img .**
 
+Vous trouvez le contener id en executant la commande **sudo docker ps -a**
+
 Puis on Flash l'image sur la carte SD grâce à la commande _dd_
 
-**$ sudo dd if=sdcard.img of=/dev/sdX**
+**$ sudo dd if=sdcard.img of=/dev/sdX bs=4096 status=progress**
 
 _sdX_ étant le port sur lequel la carte SD est branché. On peut le récupérer a l'aide de _dmesg_.
 
@@ -56,18 +59,25 @@ _sdX_ étant le port sur lequel la carte SD est branché. On peut le récupérer
 Commande à réaliser pour cross compiler votre fichier si vous voulez modifier le fichier C ou en créer un nouveau.
 
 Dans le docker commencer par faire:
+* _git clone https://github.com/dussotro/exam_2019.git_
+* _cd exam_2019/server/camera/v4l2grab-master_
 * _./autogen_, puis
-* _./configure --host=arm-buildroot-linux-uclibcgnueabihf cc=../buildroot-precompiled-2017.08/output/host/usr/bin/arm-linux-gcc_
-* et enfin cross compilé.
+* _ac_cv_func_malloc_0_nonnull=yes ac_cv_func_realloc_0_nonnull=yes ./configure --host=arm-buildroot-linux-uclibcgnueabihf CC=/root/buildroot-precompiled-2017.08/output/host/usr/bin/arm-linux-gcc_
+* _make_,pour cross compilé
+
+le Fichier cross compiler pour votre RaspberryPi est **v4l2grab**
 
 
 #Copier Fichier dans la RaspberryPi
+Mettez vous dans le terminal ou vous n'êtes pas dans le Docker.
+Copier les fichiers sur votre ordinateur, depuis le docker, dans un dossier:
+**docker cp <container_id>:/root/exam_2019/servers/servo_server.py .**
+**docker cp <container_id>:/root/exam_2019/servers/camera/v4l2grab-master/v4l2grab .**
+**docker cp <container_id>:/root/exam_2019/servers/Makefile .**
+
 Prendre la carte sd et la mettre sur l'ordinateur et déplacer les fichier à la main.
 
-Mettre les fichiers dans le répertoire _/home/user_, pour cela faite:
-**$ cd /root/home/user**
-
-créez un dossier server qui aura les fichiers:
+Mettre les fichiers dans le répertoire _/home/user_,créez un dossier server qui aura les fichiers:
 * servo_server.py
 * v4l2grab (fichier cross compilé)
 * Makefile (vous pouvez prendre celui du Github)
@@ -76,10 +86,10 @@ Il faut aussi que vous copier les fichier sur la 1ère partition de la carte SD:
 * _start_x.elf_
 * _fixup_x.dat_
 Utilisé la commande _cp_ ou faite le à la main.
-Vous pouvez retrouver ces fichier dans le docker ici: */buildroot-precompiled-2017.08/output/build/rpi-firmware-685b3ceb0a6d6d6da7b028ee409850e83fb7ede7/boot*
 
+Vous pouvez retrouver ces fichiers dans le docker ici: */buildroot-precompiled-2017.08/output/build/rpi-firmware-685b3ceb0a6d6d6da7b028ee409850e83fb7ede7/boot*
 
-Modifier le fichier *config.txt* de la 1ère partition en modifiant:
+Modifier le fichier *config.txt* de la 1ère partition en ajoutant ces lignes:
 **start_x=1
 gpu_mem=128**
 
@@ -89,10 +99,9 @@ Afin de modifier l'adresse ip de la Raspberry
 Connecter vous en liaison série avec votre RaspberryPi
 
 Pour cela, brancher la Raspberry en liaison série avec votre ordinateur. Aller sur votre ordinateur, ouvrez _gtkterm_ et configurer le sur le bon port série *ttyUSB0* par exemple (check on _dmesg | grep tty_).
-Mettre de Baud rate à 115200.
+Mettre de Baud_rate à 115200.
 
-Par la suite il faut effectuer les commandes suivantes :
-
+Par la suite il faut effectuer les commandes suivantes sur gtkterm :
 
 **$ sudo nano /etc/network/interfaces**
 
@@ -142,11 +151,11 @@ Cette commnde va créee votre sortie vidéo qui sera présente dans le répertoi
 
 # Lancement du code
 
-Sur la RaspberryPI, aller dans _/home/user/server_, là où se trouve le Makefile et exécutez la commande *make*, cette commande vas installer les librairie nécessaire pour lire correctement les images recu par la caméra.
+Sur la RaspberryPI, aller dans _/home/user/server_, là où se trouve le Makefile et exécutez la commande *make*, cette commande vas exécuter les commandes nécessaires.
 Et ensuite *make run* pour lancer les servers.
 A cette instant les serveurs sont lancés.
 
-Sur votre ordianteur, aller dans le dossier client et lancer la commande, *make*. A cette instant vous entrez dans la peau du client qui peut communiquer avec le server de la RaspberryPi.
+Sur votre ordinateur, aller dans le dossier client et lancer la commande, *make*. A cette instant vous entrez dans la peau du client qui peut communiquer avec le server de la RaspberryPi.
 
 # Règles du jeu ! Commandes chez le client
 
