@@ -6,7 +6,7 @@ import signal
 
 #Initialisation du Server
 serverSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-host = "172.20.21.164"
+host = "sys.argv[1]"
 port = 15554
 
 buffer_size = 256
