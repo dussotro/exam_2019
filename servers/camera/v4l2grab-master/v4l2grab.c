@@ -119,6 +119,7 @@ static unsigned int PORT_RECV = 15555;
 static struct sockaddr_in IPOFSERVER1;
 static struct sockaddr_in IPOFSERVER2;
 
+
 int init_server(int PORT, struct sockaddr_in ipOfServer)
 {
   int clintListn = 0, clintConnt = 0;

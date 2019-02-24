@@ -79,21 +79,21 @@ if __name__=='__main__':
 
    	#Creation du socket et connection au port
 	socket_servo  = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	# socket_camera = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	# socket_image  = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	socket_camera = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	socket_image  = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 	#Connection aux différents sockets
 	#print "==>", hote=="172.20.21.164", port_camera==15556
 	socket_servo.connect((hote, port_servo))
-	# socket_camera.connect((hote, port_camera))
-	# socket_image.connect((hote, port_image))
-	print("apres la connection de ouf")
+	socket_camera.connect((hote, port_camera))
+	time.sleep(0.5)
+        socket_image.connect((hote, port_image))
+	#print("apres la connection de ouf")
 	# sys.exit(0)
 
 	while True:
-		time.sleep(0.55) #from time.sleep(0.1)
+		time.sleep(0.2) #from time.sleep(0.1)
 		for event in pygame.event.get():
-
 			if event.type == pygame.QUIT:
 				print("Fermeture des sockets")
 				socket_image.close()
@@ -116,7 +116,7 @@ if __name__=='__main__':
 			isEnabled = 1
 			time.sleep(0.1)
 
-		# update(screen, cmd_servo, img_jpg)
+		update(screen, cmd_servo, img_jpg)
 
 		#creation de l'information sous la forme d'un dictionnaire
 
@@ -124,22 +124,18 @@ if __name__=='__main__':
 		str_isEnabled = str(isEnabled)  #permet de demander une image ou non
 
 		socket_servo.send(  (str_cmd_servo).encode() )
-		# socket_camera.send( (str_isEnabled).encode() )
+		socket_camera.send( (str_isEnabled).encode() )
 
 		#Reception Image
 		if isEnabled:
-			time.sleep(2)
-			isEnabled = 0
-
-			data = socket_image.recv(921600)
-			print(len(data))
-			print(data)
-
+                        isEnabled=0
+			print("Receiving data....")
+			data = socket_image.recv(921600,socket.MSG_WAITALL)
+			print("... Done.")
 			image = Image.frombytes("RGB", (640, 480), data)
 			image.save('out.jpg')
 
 			img_jpg = pygame.image.load("out.jpg")
-
 			update(screen, cmd_servo, img_jpg)
 
 		pygame.display.update()
