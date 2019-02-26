@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>    
+#include <string.h>
 #include <sys/socket.h>
-#include <arpa/inet.h> 
+#include <arpa/inet.h>
 #include <unistd.h>
-#include <signal.h> 
+#include <signal.h>
+#include <time.h>
 
-
-static unsigned int IMAGE_SIZE = 921600;
+//static unsigned int IMAGE_SIZE = 921600;
 static unsigned int PORT_SEND = 15556;
 static unsigned int PORT_RECV = 15555;
 static struct sockaddr_in IPOFSERVER1;
@@ -44,8 +44,6 @@ int init_server(int PORT, struct sockaddr_in ipOfServer)
 	}
 	printf("Connection established on port %d...\n", PORT);
 
-
-
   return clintConnt;
 }
 
@@ -62,29 +60,40 @@ int main(int argc , char *argv[]){
 	// init server to send images
   	int clintConnt_send = init_server(PORT_SEND, IPOFSERVER2);
 
-
   	while(1) {
+		usleep(50);
+		printf("Loop...\n");
   		// get flagPhoto from client
-	    char dataRcv[sizeof(int)];
-	    int n = recv(clintConnt_rcv, dataRcv, sizeof(dataRcv), MSG_WAITALL);
-	    int flagPhoto = atoi(dataRcv);
+	        char dataRcv[sizeof(int)];
+	        recv(clintConnt_rcv, dataRcv, sizeof(dataRcv), 0);
+	        int flagPhoto = atoi(dataRcv);
 
-	    // use of system to call directly the library
-	    system("./v4l2grab -o image.jpg");
-	    FILE *picture;
-		picture = fopen("image.jpg", "r");
+		if (flagPhoto) {
+			printf("Calling the library...");
+	        	// use of system to call directly the library
+	       		system("./v4l2grab -o image.jpg");
 
+	        	FILE *picture;
+			char buffer[1];
+			int size;
 
-		char buffer[1]; 
- 		while(!feof(picture)) {
-            //Reading a byte of the picture, and sending it through the socket
-            fread(buffer, 1, sizeof(buffer), picture);
-            send(clintConnt_send, buffer, sizeof(char), 0);
-            bzero(buffer, sizeof(char));
-		}
+			picture = fopen("image.bmp", "r");
+			fseek(picture, 0, SEEK_END);
+        		size = ftell(picture);
+			printf("%d\n", size);
+
+			send(clintConnt_send, &size, sizeof(size), 0);
+			usleep(2000);
+	        	//Return to the beginning of the picture
+			fseek(picture, 0, SEEK_SET);
+ 			while(!feof(picture)) {
+           			 //Reading a byte of the picture, and sending it through the socket
+            			 fread(buffer, 1, sizeof(buffer), picture);
+          			 write(clintConnt_send, buffer, sizeof(char));
+            			 bzero(buffer, sizeof(char));
+			}
 
 		fclose(picture);
-
+		}
 	}
-
 }
