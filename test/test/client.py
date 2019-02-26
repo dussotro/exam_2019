@@ -1,5 +1,6 @@
 # coding: utf-8
 
+import struct
 import socket
 import signal
 import sys
@@ -129,19 +130,27 @@ if __name__=='__main__':
 		#Reception Image
 		if isEnabled:
 			isEnabled=0
+
 			print("Receiving size of data....")
-			size = socket_image.recv(100,socket.MSG_WAITALL)
-			size = size.decode()
-			print("Done, size = ", size)
+			sizeB = socket_image.recv(4,socket.MSG_WAITALL)
+			size = struct.unpack('<HH',sizeB)[0]
+			print("Done, size = ", size, type(size))
 
 			print("Receiving data...")
-			while len(data)<size:
-				size = socket_image.recv(1,socket.MSG_WAITALL)
-			print("... Done. number of data = ", len(data))
-			image = Image.frombytes("RGB", (640, 480), data)
-			image.save('out.jpg')
+			received = open("received.jpg", "wb")
+			cpt_size = 0
+			while (True):
+				cpt_size+=1
+				data = socket_image.recv(1,socket.MSG_WAITALL)
+				if (cpt_size>size):
+					break
+				received.write(data)
+			received.close()
+			print("... Done.")
+			#image = Image.frombytes("RGB", (640, 480), data)
+			#image.save('out.jpg')
 
-			img_jpg = pygame.image.load("out.jpg")
+			img_jpg = pygame.image.load("received.jpg")
 			update(screen, cmd_servo, img_jpg)
 
 		pygame.display.update()

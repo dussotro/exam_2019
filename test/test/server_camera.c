@@ -71,13 +71,13 @@ int main(int argc , char *argv[]){
 		if (flagPhoto) {
 			printf("Calling the library...");
 	        	// use of system to call directly the library
-	       		system("./v4l2grab -o image.jpg");
+	       		system("./v4l2grab -o image.bmp");
 
 	        	FILE *picture;
 			char buffer[1];
 			int size;
 
-			picture = fopen("image.jpg", "r");
+			picture = fopen("image.bmp", "r");
 			fseek(picture, 0, SEEK_END);
         		size = ftell(picture);
 			printf("%d\n", size);
@@ -89,13 +89,11 @@ int main(int argc , char *argv[]){
  			while(!feof(picture)) {
            			 //Reading a byte of the picture, and sending it through the socket
             			 fread(buffer, 1, sizeof(buffer), picture);
-          			 send(clintConnt_send, buffer, sizeof(char), 0);
-            			bzero(buffer, sizeof(char));
+          			 write(clintConnt_send, buffer, sizeof(char));
+            			 bzero(buffer, sizeof(char));
 			}
 
 		fclose(picture);
 		}
-
 	}
-
 }
