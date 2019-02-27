@@ -10,6 +10,7 @@
 //static unsigned int IMAGE_SIZE = 921600;
 static unsigned int PORT_SEND = 15556;
 static unsigned int PORT_RECV = 15555;
+//adress in not fix, defined when a program tries to connect to a port directly
 static struct sockaddr_in IPOFSERVER1;
 static struct sockaddr_in IPOFSERVER2;
 
@@ -22,11 +23,9 @@ int init_server(int PORT, struct sockaddr_in ipOfServer)
 	{
 		printf("Could not create socket");
 	}
-	// memset(&ipOfServer, '0', sizeof(ipOfServer)); // fills the struct with zeros
-	// memset(dataSending, '0', sizeof(dataSending)); // fills the variable with zeros
-	ipOfServer.sin_family = AF_INET; // designation of the adress type for communication ipV4
+	ipOfServer.sin_family = AF_INET;         // designation of the adress type for communication ipV4
 	ipOfServer.sin_addr.s_addr = INADDR_ANY; //htonl(ADDR); // convertion to address byte order
-	ipOfServer.sin_port = htons( PORT ); // convertion to address byte order
+	ipOfServer.sin_port = htons( PORT );     // convertion to address byte order
 
 	if ( bind(clintListn, (struct sockaddr*)&ipOfServer, sizeof(ipOfServer)) < 0 )
 	{
@@ -54,6 +53,16 @@ void signals_handler(int signal_number)
 }
 
 int main(int argc , char *argv[]){
+
+    	struct sigaction action;
+    	action.sa_handler = signals_handler;
+   	sigemptyset(& (action.sa_mask));
+    	action.sa_flags = 0;
+    	sigaction(SIGINT, & action, NULL);
+    	sigaction(SIGTSTP, & action, NULL);
+	sigaction(SIGTERM, & action, NULL);
+
+
 	// init server to receive signal
 	int clintConnt_rcv = init_server(PORT_RECV, IPOFSERVER1);
 

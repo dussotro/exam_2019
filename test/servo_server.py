@@ -60,6 +60,11 @@ if __name__=='__main__':
         if angle == '':
             pass
         else:
+            if angle[-3] == '1':
+            	angle = angle[-3:]
+	    else:
+		angle = angle[-2:]
+
             angle = (int(angle)/180.0)*5.0 + 5.0
             try:
                 p.ChangeDutyCycle(float(angle))
