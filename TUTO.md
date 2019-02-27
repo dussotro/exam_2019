@@ -17,6 +17,9 @@ Linux Embarqué : Mini Projet.
 * Pygame      *sudo pip install pygame*
 * PIL         *sudo pip install Pillow*
 * GTKterm     *sudo apt-get install gtkterm*
+
+La suite des installations sont a faire dans le docker
+
 * librairies libv4l & libjpeg *sudo apt install libjpeg-dev libv4l-dev autoconf automake libtool*
 =====================================
 
@@ -60,8 +63,8 @@ Commande à réaliser pour cross compiler votre fichier si vous voulez modifier 
 
 Dans le docker commencer par faire:
 * _git clone https://github.com/dussotro/exam_2019.git_
-* _cd exam_2019/server/camera/v4l2grab-master_
-* _./autogen_, puis
+* _cd exam_2019/server/camera/v4l2grab-master/
+* _./autogen.sh_, puis
 * _ac_cv_func_malloc_0_nonnull=yes ac_cv_func_realloc_0_nonnull=yes ./configure --host=arm-buildroot-linux-uclibcgnueabihf CC=/root/buildroot-precompiled-2017.08/output/host/usr/bin/arm-linux-gcc_
 * _make_,pour cross compilé
 
@@ -72,7 +75,9 @@ le Fichier cross compiler pour votre RaspberryPi est **v4l2grab**
 Mettez vous dans le terminal ou vous n'êtes pas dans le Docker.
 Copier les fichiers sur votre ordinateur, depuis le docker, dans un dossier:
 **docker cp <container_id>:/root/exam_2019/servers/servo_server.py .**
+
 **docker cp <container_id>:/root/exam_2019/servers/camera/v4l2grab-master/v4l2grab .**
+
 **docker cp <container_id>:/root/exam_2019/servers/Makefile .**
 
 Prendre la carte sd et la mettre sur l'ordinateur et déplacer les fichier à la main.
