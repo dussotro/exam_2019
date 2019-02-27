@@ -39,9 +39,9 @@ La suite des installations sont a faire dans le docker
 
 On récupère le docker :
 
-**$ docker pull pblottiere/embsys-rpi3-buildroot-video**
+**sudo docker pull pblottiere/embsys-rpi3-buildroot-video**
 
-**$ docker run -it pblottiere/embsys-rpi3-buildroot-video /bin/bash**
+**sudo docker run -it pblottiere/embsys-rpi3-buildroot-video /bin/bash**
 
 **$ docker# cd /root**
 
@@ -96,7 +96,6 @@ Prendre la carte sd et la mettre sur l'ordinateur et déplacer les fichier à la
 Mettre les fichiers dans le répertoire _/home/user_,créez un dossier server qui aura les fichiers:
 * servo_server.py
 * v4l2grab (fichier cross compilé)
-* Makefile (vous pouvez prendre celui du Github)
 
 Il faut aussi que vous copier les fichier sur la 1ère partition de la carte SD:
 * _start_x.elf_
@@ -110,6 +109,7 @@ gpu_mem=128**
 
 ## Modification de l'adresse Ip de la RaspberryPi pour rendre l'IP statique
 
+Connecter votre Raspberry en ethernet a votre ordinateur.
 Afin de modifier l'adresse ip de la Raspberry
 Connecter vous en liaison série avec votre RaspberryPi
 
@@ -126,24 +126,26 @@ Il faut ensuite remplacer la ligne
 
 par
 
-*auto eth0
-allow-hotplug eth0
-iface eth0 inet static
-  address 172.20.21.164
-  netmask 255.255.0.0
+*auto eth0<br />
+allow-hotplug eth0<br />
+iface eth0 inet static<br />
+  address 172.20.21.164<br />
+  netmask 255.255.0.0<br />
   geteway 172.20.255.255*
+
 
 Si vous voulez changer aussi l'adresse wifi de votre carte et la mettre en static rajouter les ligne suivantes à la suite des autres. Mettez une adresse Ip libre de votre réseau wifi :
 
 *iface wlan0 inet static*
 
-*address XXX.XXX.XXX.XXX*
+*address XXX.XXX.XXX.XXX*<br />
 *netmask 255.255.0.0*
 
-
-Adresse ip fixe de la RaspberryPi : _172.20.21.164_
+Adresse ip fixe de la RaspberryPi : _172.20.21.164_<br />
 Redémarré votre RaaspberryPi.
 
+Veuillez bien vérifier que votre RaspberryPi est bien la bonne adresse IP. 
+Si ce n'est pas la cas
 
 ### Il faut ensuite faire correspondre Adresse IP fixe de l'ordinateur :
 Pour l'ordinateur il faut effectuer la commande,
@@ -155,14 +157,8 @@ Pour l'ordinateur il faut effectuer la commande,
 ## Servo Moteur
 
 On a choisit de brancher le servo moteur sur le port **GPIO4**.
-
+[Pour trouver les pins de votre raspberry](https://www.framboise314.fr/wp-content/uploads/2018/02/kit_composants_GPIO_01.png)
 Sur le servo moteur, on envoie une commande en angle entre 0 et 180 degrés.
-
-## Caméra
-A NE PAS FAIRE CAR DEJA PRESENT DANS LE MAKEFILE.
-
-Pour crée la sortie vidéo de votre caméra, il faut lancer la commande *modprobe bcm2835-v4l2* sur le terminal gtkterm.
-Cette commnde va créee votre sortie vidéo qui sera présente dans le répertoire _/dev/video0_.
 
 ## Lancement du code
 
@@ -180,13 +176,6 @@ Sur votre ordinateur, aller dans le dossier client et lancer la commande, *make*
 
 L'équipe vous remercie de la confiance accordée à leur travail.
 
-
-## MATERIEL 
-
-Il faut brancher le servomoteur sur le port GPIO4 de votre raspberry. 
-[Pour trouver les pins de votre raspberry](https://www.framboise314.fr/wp-content/uploads/2018/02/kit_composants_GPIO_01.png)
-
-Il faut aussi vous connecter en ethernet a votre raspberry.
 
 ## Lancement du code
 
