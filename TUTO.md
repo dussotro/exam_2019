@@ -1,8 +1,6 @@
 Linux Embarqué : Mini Projet.
 
 
-
-
 =========Installations requises======
 * Docker      *sudo apt install docker*
 * MatplotLib  *sudo pip install matplotlib*
@@ -24,7 +22,7 @@ La suite des installations sont a faire dans le docker
 * Commande à lancer
 * Règle du jeu
 
-# Flashage de la Raspberry
+## Flashage de la Raspberry
 
 On récupère le docker :
 
@@ -34,10 +32,10 @@ On récupère le docker :
 
 **$ docker# cd /root**
 
-**$ docker# tar zxvf buildroot-precompiled-2017.08.tar.gz**
+**$ docker# tar zxvf buildroot-precompiled-2017.08.tar.gz** 
 
 
-#Cross Compilation (Dans le docker)
+##Cross Compilation (Dans le docker)
 
 Commande à réaliser pour cross compiler votre fichier si vous voulez modifier le fichier C ou en créer un nouveau.
 
@@ -50,7 +48,7 @@ Dans le docker commencer par faire:
 
 le Fichier cross compiler pour votre RaspberryPi est **v4l2grab**
 
-## Flashage de la raspberry
+### Flashage de la raspberry
 
 On copie l'image, qui sera flasher sur la carte, sur notre machine hôte depuis le docker.
 Ouvrez un autre terminal ou vous serez en dehors du docker et executez la commande suivante:
@@ -65,7 +63,7 @@ Puis on Flash l'image sur la carte SD grâce à la commande _dd_
 
 _sdX_ étant le port sur lequel la carte SD est branché. On peut le récupérer a l'aide de _dmesg_.
 
-# Copier Fichier dans la RaspberryPi
+## Copier Fichier dans la RaspberryPi
 Mettez vous dans le terminal ou vous n'êtes pas dans le Docker.
 Copier les fichiers sur votre ordinateur, depuis le docker, dans un dossier:
 
@@ -97,7 +95,7 @@ Modifier le fichier *config.txt* de la 1ère partition en ajoutant ces lignes:
 **start_x=1
 gpu_mem=128**
 
-# Modification de l'adresse Ip de la RaspberryPi pour rendre l'IP statique
+## Modification de l'adresse Ip de la RaspberryPi pour rendre l'IP statique
 
 Afin de modifier l'adresse ip de la Raspberry
 Connecter vous en liaison série avec votre RaspberryPi
@@ -134,26 +132,26 @@ Adresse ip fixe de la RaspberryPi : _172.20.21.164_
 Redémarré votre RaaspberryPi.
 
 
-## Il faut ensuite faire correspondre Adresse IP fixe de l'ordinateur :
+### Il faut ensuite faire correspondre Adresse IP fixe de l'ordinateur :
 Pour l'ordinateur il faut effectuer la commande,
 
 *ifconfig XXXXXXX 172.20.11.72*
 
  avec XXXXXXX, le nom de l'ethernet de votre pc
 
-# Servo Moteur
+## Servo Moteur
 
 On a choisit de brancher le servo moteur sur le port **GPIO4**.
 
 Sur le servo moteur, on envoie une commande en angle entre 0 et 180 degrés.
 
-# Caméra
+## Caméra
 A NE PAS FAIRE CAR DEJA PRESENT DANS LE MAKEFILE.
 
 Pour crée la sortie vidéo de votre caméra, il faut lancer la commande *modprobe bcm2835-v4l2* sur le terminal gtkterm.
 Cette commnde va créee votre sortie vidéo qui sera présente dans le répertoire _/dev/video0_.
 
-# Lancement du code
+## Lancement du code
 
 Sur la RaspberryPI, aller dans _/home/user/server_, là où se trouve le Makefile et exécutez la commande *make*, cette commande vas exécuter les commandes nécessaires.
 Et ensuite *make run* pour lancer les servers.
@@ -161,7 +159,7 @@ A cette instant les serveurs sont lancés.
 
 Sur votre ordinateur, aller dans le dossier client et lancer la commande, *make*. A cette instant vous entrez dans la peau du client qui peut communiquer avec le server de la RaspberryPi.
 
-# Règles du jeu ! Commandes chez le client
+## Règles du jeu ! Commandes chez le client
 
 * Pour changer l'angle de la caméra il vous faudra appuyer sur les touches flèches *droite* et *gauche*. L'angle s'affiche sur l'écran pour savoir ou vous en êtes.
 
