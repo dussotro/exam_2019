@@ -20,9 +20,6 @@ Notre système se compose de 5 fichiers importants:
 * Pygame      *sudo pip install pygame*
 * PIL         *sudo pip install Pillow*
 * GTKterm     *sudo apt-get install gtkterm*
-
-La suite des installations sont a faire dans le docker
-
 * librairies libv4l & libjpeg *sudo apt install libjpeg-dev libv4l-dev autoconf automake libtool*
 =====================================
 
