@@ -37,7 +37,6 @@ On récupère le docker :
 **$ docker# tar zxvf buildroot-precompiled-2017.08.tar.gz**
 
 
-
 #Cross Compilation (Dans le docker)
 
 Commande à réaliser pour cross compiler votre fichier si vous voulez modifier le fichier C ou en créer un nouveau.

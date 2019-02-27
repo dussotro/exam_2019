@@ -12,7 +12,7 @@ Notre système se compose de 5 fichiers importants:
 * client.py       (Ordinateur)
 * Makefile        (Ordianteur)
 
-================= CAS D'UNE RAPSBERRYPI AVEC OS ============
+## CAS D'UNE RAPSBERRYPI AVEC OS
 
 Si vous avez déja une carte micro SD avec un OS, il vous suffit :
 * de copier le dossier _server_ sur votre RaspberryPi contenant:
@@ -30,20 +30,18 @@ Et enfin modifier le fichier *config.txt* de la 1ère partition en ajoutant ces 
 **start_x=1
 gpu_mem=128**
 
-================= CAS D'UNE RAPSBERRYPI SANS OS ============
+## CAS D'UNE RAPSBERRYPI SANS OS
 
 Si vous voulez flasher votre carte par vos propre moyen, un tuto vous est mis à disposition (*suivre depuis le début "[TUTO.md](TUTO.md)"*).
 
-================= MATERIEL =================================
+## MATERIEL 
 
 Il faut brancher le servomoteur sur le port GPIO4 de votre raspberry. 
 [Pour trouver les pins de votre raspberry](https://www.framboise314.fr/wp-content/uploads/2018/02/kit_composants_GPIO_01.png)
 
 Il faut aussi vous connecter en ethernet a votre raspberry.
 
-================= LANCEMENT DU CODE ========================
-
-# Lancement du code
+## Lancement du code
 
 Sur la RaspberryPI, aller dans _/home/user/server_, là où se trouve le Makefile et exécutez la commande *make*, cette commande vas exécuter les commandes nécessaires.
 Et ensuite *make run* pour lancer les servers.
@@ -51,7 +49,7 @@ A cette instant les serveurs sont lancés.
 
 Sur votre ordinateur, aller dans le dossier client et lancer la commande, *make*. A cette instant vous entrez dans la peau du client qui peut communiquer avec le server de la RaspberryPi.
 
-# Règles du jeu ! Commandes chez le client
+## Règles du jeu ! Commandes chez le client
 
 * Pour changer l'angle de la caméra il vous faudra appuyer sur les touches flèches *droite* et *gauche*. L'angle s'affiche sur l'écran pour savoir ou vous en êtes.
 
