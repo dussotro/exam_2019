@@ -35,7 +35,7 @@ La suite des installations sont a faire dans le docker
 * Commande à lancer
 * Règle du jeu
 
-## Flashage de la Raspberry
+## Préparation du docker
 
 On récupère le docker :
 
