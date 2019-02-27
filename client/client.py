@@ -1,5 +1,6 @@
 # coding: utf-8
 
+import struct
 import socket
 import signal
 import sys
@@ -11,7 +12,7 @@ import time
 import PIL.Image as Image
 
 def close_all(signal, frame):
-	socket_servo.close()
+	#socket_servo.close()
 	socket_camera.close()
 	socket_image.close()
 	print("\nSIG : {} : Interruption programme...".format(signal))
@@ -42,7 +43,7 @@ if sys.argv[1]:
 
 try:
 	socket_image.close()
-	socket_servo.close()
+	#socket_servo.close()
 	socket_camera.close()
 except:
 	pass
@@ -78,16 +79,16 @@ if __name__=='__main__':
 	isEnabled = 0
 
    	#Creation du socket et connection au port
-	socket_servo  = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	#socket_servo  = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	socket_camera = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	socket_image  = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 	#Connection aux différents sockets
 	#print "==>", hote=="172.20.21.164", port_camera==15556
-	socket_servo.connect((hote, port_servo))
+	#socket_servo.connect((hote, port_servo))
 	socket_camera.connect((hote, port_camera))
 	time.sleep(0.5)
-        socket_image.connect((hote, port_image))
+	socket_image.connect((hote, port_image))
 	#print("apres la connection de ouf")
 	# sys.exit(0)
 
@@ -97,7 +98,7 @@ if __name__=='__main__':
 			if event.type == pygame.QUIT:
 				print("Fermeture des sockets")
 				socket_image.close()
-				socket_servo.close()
+				#socket_servo.close()
 				socket_camera.close()
 				sys.exit(0)
 
@@ -123,19 +124,33 @@ if __name__=='__main__':
 		str_cmd_servo = str(cmd_servo)  #commande angle entre 0 et 180
 		str_isEnabled = str(isEnabled)  #permet de demander une image ou non
 
-		socket_servo.send(  (str_cmd_servo).encode() )
+		#socket_servo.send(  (str_cmd_servo).encode() )
 		socket_camera.send( (str_isEnabled).encode() )
 
 		#Reception Image
 		if isEnabled:
-                        isEnabled=0
-			print("Receiving data....")
-			data = socket_image.recv(921600,socket.MSG_WAITALL)
-			print("... Done.")
-			image = Image.frombytes("RGB", (640, 480), data)
-			image.save('out.jpg')
+			isEnabled=0
 
-			img_jpg = pygame.image.load("out.jpg")
+			print("Receiving size of data....")
+			sizeB = socket_image.recv(4,socket.MSG_WAITALL)
+			size = struct.unpack('<HH',sizeB)[0]
+			print("Done, size = ", size, type(size))
+
+			print("Receiving data...")
+			received = open("received.jpg", "wb")
+			cpt_size = 0
+			while (True):
+				cpt_size+=1
+				data = socket_image.recv(1,socket.MSG_WAITALL)
+				if (cpt_size>size):
+					break
+				received.write(data)
+			received.close()
+			print("... Done.")
+			#image = Image.frombytes("RGB", (640, 480), data)
+			#image.save('out.jpg')
+
+			img_jpg = pygame.image.load("received.jpg")
 			update(screen, cmd_servo, img_jpg)
 
 		pygame.display.update()
