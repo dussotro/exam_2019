@@ -212,7 +212,7 @@ static int xioctl(int fd, int request, void* argp)
 
 	\param img image to write
 */
-static void jpegWrite(unsigned char* img, char* jpegFilename)
+static void jpegWrite(unsigned char* img, char* jpegFilename, int cli)
 {
 	struct jpeg_compress_struct cinfo;
 	struct jpeg_error_mgr jerr;
@@ -256,8 +256,31 @@ static void jpegWrite(unsigned char* img, char* jpegFilename)
 	// destroy jpeg data
 	jpeg_destroy_compress(&cinfo);
 
+  fclose(outfile);
+
+  FILE *picture;
+  picture = fopen(jpegFilename, "rb");
+  // envoie de l'image jpeg via socket
+  char buff[1];
+  int size;
+
+  fseek(picture, 0, SEEK_END);
+  size = ftell(picture);
+
+  send(cli, &size, sizeof(size), 0);
+  usleep(2000);
+
+  fseek(picture, 0, SEEK_SET);
+  while(!feof(picture))
+   {
+    fread(buff, 1, sizeof(buff), picture);
+    write(cli, buff, sizeof(char));
+    bzero(buff, sizeof(char));
+   }
+
+
 	// close output file
-	fclose(outfile);
+	fclose(picture);
 }
 
 /**
@@ -282,14 +305,14 @@ static void imageProcess(const void* p, struct timeval timestamp, int cli)
 	}
 
 	// write jpeg
-	//jpegWrite(dst,jpegFilename);
+	jpegWrite(dst,jpegFilename, cli);
 
   // send image via server
-  static int sent = 0;
-  while (sent < IMAGE_SIZE)
-  {
-    sent = sent + send(cli, dst, IMAGE_SIZE, 0);
-  }
+  // static int sent = 0;
+  // while (sent < IMAGE_SIZE)
+  // {
+  //   sent = sent + send(cli, dst, IMAGE_SIZE, MSG_MORE);
+  // }
 
 	// free temporary image
 	free(dst);
@@ -298,8 +321,7 @@ static void imageProcess(const void* p, struct timeval timestamp, int cli)
 /**
 	read single frame
 */
-static int
-(int cli)
+static int frameRead(int cli)
 {
 	struct v4l2_buffer buf;
 #ifdef IO_USERPTR
