@@ -20,7 +20,6 @@ Notre système se compose de 5 fichiers importants:
 * Pygame      *sudo pip install pygame*
 * PIL         *sudo pip install Pillow*
 * GTKterm     *sudo apt-get install gtkterm*
-* librairies libv4l & libjpeg *sudo apt install libjpeg-dev libv4l-dev autoconf automake libtool*
 =====================================
 
 # DEROULEMENT
