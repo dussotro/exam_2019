@@ -44,7 +44,18 @@ On récupère le docker :
 
 **$ docker# tar zxvf buildroot-precompiled-2017.08.tar.gz**
 
+On copie l'image, qui sera flasher sur la carte, sur notre machine hôte depuis le docker.
+Ouvrez un autre terminal ou vous serez en dehors du docker et executez la commande suivante:
 
+**$ docker cp <container_id>:/root/buildroot-precompiled-2017.08/output/images/sdcard.img .**
+
+Vous trouvez le contener id en executant la commande **sudo docker ps -a**
+
+Puis on Flash l'image sur la carte SD grâce à la commande _dd_
+
+**$ sudo dd if=sdcard.img of=/dev/sdX bs=4096 status=progress**
+
+_sdX_ étant le port sur lequel la carte SD est branché. On peut le récupérer a l'aide de _dmesg_.
 
 #Cross Compilation (Dans le docker)
 
@@ -59,35 +70,15 @@ Dans le docker commencer par faire:
 
 le Fichier cross compiler pour votre RaspberryPi est **v4l2grab**
 
-## Flashage de la raspberry
 
-On copie l'image, qui sera flasher sur la carte, sur notre machine hôte depuis le docker.
-Ouvrez un autre terminal ou vous serez en dehors du docker et executez la commande suivante:
-
-**$ docker cp <container_id>:/root/buildroot-precompiled-2017.08/output/images/sdcard.img .**
-
-Vous trouvez le contener id en executant la commande **sudo docker ps -a**
-
-Puis on Flash l'image sur la carte SD grâce à la commande _dd_
-
-**$ sudo dd if=sdcard.img of=/dev/sdX bs=4096 status=progress**
-
-_sdX_ étant le port sur lequel la carte SD est branché. On peut le récupérer a l'aide de _dmesg_.
-
-# Copier Fichier dans la RaspberryPi
+#Copier Fichier dans la RaspberryPi
 Mettez vous dans le terminal ou vous n'êtes pas dans le Docker.
 Copier les fichiers sur votre ordinateur, depuis le docker, dans un dossier:
-
 **docker cp <container_id>:/root/exam_2019/servers/servo_server.py .**
 
 **docker cp <container_id>:/root/exam_2019/servers/camera/v4l2grab-master/v4l2grab .**
 
 **docker cp <container_id>:/root/exam_2019/servers/Makefile .**
-
-**docker cp <container_id>:/root/buildroot-precompiled-2017.08/output/build/rpi-firmware-685b3ceb0a6d6d6da7b028ee409850e83fb7ede7/boot/start_x.elf .**
-
-**docker cp <container_id>:/root/buildroot-precompiled-2017.08/output/build/rpi-firmware-685b3ceb0a6d6d6da7b028ee409850e83fb7ede7/boot/fixup_x.dat .**
-
 
 Prendre la carte sd et la mettre sur l'ordinateur et déplacer les fichier à la main.
 
@@ -101,6 +92,7 @@ Il faut aussi que vous copier les fichier sur la 1ère partition de la carte SD:
 * _fixup_x.dat_
 Utilisé la commande _cp_ ou faite le à la main.
 
+Vous pouvez retrouver ces fichiers dans le docker ici: */buildroot-precompiled-2017.08/output/build/rpi-firmware-685b3ceb0a6d6d6da7b028ee409850e83fb7ede7/boot*
 
 Modifier le fichier *config.txt* de la 1ère partition en ajoutant ces lignes:
 **start_x=1
