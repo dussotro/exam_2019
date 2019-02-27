@@ -1,21 +1,22 @@
 Ce projet s'inscrit dans le cadre d'un projet réalisé durant notre dernière année d'école d'ingénieur à L'ENSTA Bretagne.
 
 Dans ce Github vous trouverez:
-* Un fichier _TUTO.md_ montrant comment nous avons réalisé notre projet (docker, flashage, ,cross compilation, IP, ...)
-* Les fichiers à télécharger et à copier sur votre RaspberryPI.
+* un dossier server ou les code originels sont disponible.
+* un dossier client ou le code client est disponible.
+* Les fichiers déjà compiler à télécharger et à copier sur votre RaspberryPI *projet_cross_compiler*.
 
 Notre système se compose de 5 fichiers importants:
 
 * servo_server.py (RaspberryPI)
 * v4l2grab        (RaspberryPI)
-* Makefile        (RaspberryPI)
+* server_camera   (RaspberryPI)
 * client.py       (Ordinateur)
-* Makefile        (Ordianteur)
+
 
 
 
 =========Installations requises======
-* Docker      *sudo apt install docker*
+* Docker      *https://doc.ubuntu-fr.org/docker* suivre les indication
 * MatplotLib  *sudo pip install matplotlib*
 * Pygame      *sudo pip install pygame*
 * PIL         *sudo pip install Pillow*
@@ -42,7 +43,7 @@ On récupère le docker :
 
 **$ docker# cd /root**
 
-**$ docker# tar zxvf buildroot-precompiled-2017.08.tar.gz** 
+**$ docker# tar zxvf buildroot-precompiled-2017.08.tar.gz**
 
 
 ## Cross Compilation (Dans le docker)
@@ -88,6 +89,7 @@ Copier les fichiers sur votre ordinateur, depuis le docker, dans un dossier:
 
 Prendre la carte sd et la mettre sur l'ordinateur et déplacer les fichier à la main.
 
+
 Mettre les fichiers dans le répertoire _/home/user_,créez un dossier server qui aura les fichiers:
 * servo_server.py
 * v4l2grab (fichier cross compilé)
@@ -106,10 +108,12 @@ gpu_mem=128**
 
 Connecter votre Raspberry en ethernet a votre ordinateur.
 Afin de modifier l'adresse ip de la Raspberry
-Connecter vous en liaison série avec votre RaspberryPi
 
 Pour cela, brancher la Raspberry en liaison série avec votre ordinateur. Aller sur votre ordinateur, ouvrez _gtkterm_ et configurer le sur le bon port série *ttyUSB0* par exemple (check on _dmesg | grep tty_).
-Mettre de Baud_rate à 115200.
+Mettre de Baud_rate à 115200
+Si rien ne s'affiche, débrancher et rebrancher l'alimentation de la RaspberryPi.
+
+Vous devez ensuite entrer l'identifiant : _root_ et le mot de passe: _*root1*_
 
 Par la suite il faut effectuer les commandes suivantes sur gtkterm :
 
@@ -139,10 +143,10 @@ Si vous voulez changer aussi l'adresse wifi de votre carte et la mettre en stati
 Adresse ip fixe de la RaspberryPi : _172.20.21.164_<br />
 Redémarré votre RaaspberryPi.
 
-Veuillez bien vérifier que votre RaspberryPi est bien la bonne adresse IP. 
+Veuillez bien vérifier que votre RaspberryPi est bien la bonne adresse IP.
 Si ce n'est pas la cas, vous pouvez executer la commande suivant dans le terminal gtkterm:
 **ifconfig eth0 172.20.21.1644**
-Cette commande fixera l'addresse Ip de la RaspberryPi. 
+Cette commande fixera l'addresse Ip de la RaspberryPi.
 
 ### Il faut ensuite faire correspondre Adresse IP fixe de l'ordinateur :
 Pour l'ordinateur il faut effectuer la commande,
@@ -170,6 +174,8 @@ Sur votre ordinateur, aller dans le dossier client et lancer la commande, **pyth
 * Pour changer l'angle de la caméra il vous faudra appuyer sur les touches flèches *droite* et *gauche*. L'angle s'affiche sur l'écran pour savoir ou vous en êtes.
 
 * Pour prendre une photo il faut appuyer sur la touche *s* de votre clavier, pendant 2secondes, pour sauvegarder l'image sur votre ordinateur et l'afficher. L'image est écrasée d'un appui à l'autre sur la touche *s*.
+
+* Si vous rester appuyer dessus, vous aurez une vidéo en 1fps ! Trop rapide.
 
 ## Problèmes éventuels
 Si vous rencontrez des soucis lors de l'exécution des commandes lançant les codes, vérifiez bien les addresses Ip de votre ordinateur et de la RaspberryPi.
