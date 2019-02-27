@@ -24,6 +24,7 @@ Notre système se compose de 5 fichiers importants:
 =====================================
 
 # DEROULEMENT
+* Préparation du docker
 * Flashage de la Raspberry
 * Cross compilation
 * Copie des dossier sur la Raspberry et votre Ordinateur
