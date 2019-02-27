@@ -30,8 +30,8 @@ Il vous rest plus qu'à lancer la simulation !
 
 ================= CAS D'UNE RAPSBERRYPI SANS OS ============
 
-Si vous voulez flasher votre carte par vos propre moyen, un tuto vous est mis à disposition (*suivre depuis le début "TUTO.md"*).
-[Tuto.md](TUTO.md)
+Si vous voulez flasher votre carte par vos propre moyen, un tuto vous est mis à disposition (*suivre depuis le début "[Tuto.md](TUTO.md)"*).
+
 
 
 Pour toutes autres questions ou demandes, n'hésitez pas à nous contacter.
