@@ -1,14 +1,6 @@
 Linux Embarqué : Mini Projet.
 
-==============Matériel===============
-* RaspberryPI 3
-* Alimentation RaspberryPI
-* Carte SD 512Mo (Minimum)
-* Servo moteur 0-180°
-* Adaptateur usb liaison série
-* Caméra RaspberryPI
-* Câbles de branchement
-* Adaptateur usb liaison série
+
 
 
 =========Installations requises======
