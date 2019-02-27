@@ -140,7 +140,9 @@ Adresse ip fixe de la RaspberryPi : _172.20.21.164_<br />
 Redémarré votre RaaspberryPi.
 
 Veuillez bien vérifier que votre RaspberryPi est bien la bonne adresse IP. 
-Si ce n'est pas la cas
+Si ce n'est pas la cas, vous pouvez executer la commande suivant dans le terminal gtkterm:
+**ifconfig eth0 172.20.21.1644**
+Cette commande fixera l'addresse Ip de la RaspberryPi. 
 
 ### Il faut ensuite faire correspondre Adresse IP fixe de l'ordinateur :
 Pour l'ordinateur il faut effectuer la commande,
@@ -157,39 +159,24 @@ Sur le servo moteur, on envoie une commande en angle entre 0 et 180 degrés.
 
 ## Lancement du code
 
-Sur la RaspberryPI, aller dans _/home/user/server_, là où se trouve le Makefile et exécutez la commande *make*, cette commande vas exécuter les commandes nécessaires.
-Et ensuite *make run* pour lancer les servers.
-A cette instant les serveurs sont lancés.
+Sur la RaspberryPI, aller dans _/home/user/server_, là où se trouve les fichiers à exécuter et exécutez les commande suivantes:
+* **python server_servo.py &**
+* **./server_camera**
 
-Sur votre ordinateur, aller dans le dossier client et lancer la commande, *make*. A cette instant vous entrez dans la peau du client qui peut communiquer avec le server de la RaspberryPi.
-
-## Règles du jeu ! Commandes chez le client
-
-* Pour changer l'angle de la caméra il vous faudra appuyer sur les touches flèches *droite* et *gauche*. L'angle s'affiche sur l'écran pour savoir ou vous en êtes.
-
-* Pour prendre une photo il faut appuyer sur la touche *s* de votre clavier pour sauvegarder l'image sur votre ordinateur et l'afficher. L'image est écrasée d'un appui à l'autre sur la touche *s*.
-
-L'équipe vous remercie de la confiance accordée à leur travail.
-
-
-## Lancement du code
-
-Sur la RaspberryPI, aller dans _/home/user/server_, là où se trouve le Makefile et exécutez la commande *make*, cette commande vas exécuter les commandes nécessaires.
-Et ensuite *make run* pour lancer les servers.
-A cette instant les serveurs sont lancés.
-
-Sur votre ordinateur, aller dans le dossier client et lancer la commande, *make*. A cette instant vous entrez dans la peau du client qui peut communiquer avec le server de la RaspberryPi.
+Sur votre ordinateur, aller dans le dossier client et lancer la commande, **python3 client.py**. A cette instant vous entrez dans la peau du client qui peut communiquer avec le server de la RaspberryPi.
 
 ## Règles du jeu ! Commandes chez le client
 
 * Pour changer l'angle de la caméra il vous faudra appuyer sur les touches flèches *droite* et *gauche*. L'angle s'affiche sur l'écran pour savoir ou vous en êtes.
 
-* Pour prendre une photo il faut appuyer sur la touche *s* de votre clavier pour sauvegarder l'image sur votre ordinateur et l'afficher. L'image est écrasée d'un appui à l'autre sur la touche *s*.
+* Pour prendre une photo il faut appuyer sur la touche *s* de votre clavier, pendant 2secondes, pour sauvegarder l'image sur votre ordinateur et l'afficher. L'image est écrasée d'un appui à l'autre sur la touche *s*.
 
-L'équipe vous remercie de la confiance accordée à leur travail.
-
+## Problèmes éventuels
+Si vous rencontrez des soucis lors de l'exécution des commandes lançant les codes, vérifiez bien les addresses Ip de votre ordinateur et de la RaspberryPi.
 
 Pour toutes autres questions ou demandes, n'hésitez pas à nous contacter.
+
+L'équipe vous remercie de la confiance accordée à leur travail.
 
 Amusez-vous bien !
 
