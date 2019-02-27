@@ -33,9 +33,9 @@ Linux Embarqué : Mini Projet.
 
 On récupère le docker :
 
-**$ docker pull pblottiere/embsys-rpi3-buildroot-video**
+**$ sudo docker pull pblottiere/embsys-rpi3-buildroot-video**
 
-**$ docker run -it pblottiere/embsys-rpi3-buildroot-video /bin/bash**
+**$ sudo docker run -it pblottiere/embsys-rpi3-buildroot-video /bin/bash**
 
 **$ docker# cd /root**
 
@@ -44,7 +44,7 @@ On récupère le docker :
 On copie l'image, qui sera flasher sur la carte, sur notre machine hôte depuis le docker.
 Ouvrez un autre terminal ou vous serez en dehors du docker et executez la commande suivante:
 
-**$ docker cp <container_id>:/root/buildroot-precompiled-2017.08/output/images/sdcard.img .**
+**$ sudo docker cp <container_id>:/root/buildroot-precompiled-2017.08/output/images/sdcard.img .**
 
 Vous trouvez le contener id en executant la commande **sudo docker ps -a**
 
