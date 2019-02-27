@@ -81,8 +81,6 @@ Copier les fichiers sur votre ordinateur, depuis le docker, dans un dossier:
 
 **sudo docker cp <container_id>:/root/exam_2019/servers/camera/v4l2grab-master/v4l2grab .**
 
-**sudo docker cp <container_id>:/root/exam_2019/servers/Makefile .**
-
 **sudo docker cp <container_id>:/root/buildroot-precompiled-2017.08/output/build/rpi-firmware-685b3ceb0a6d6d6da7b028ee409850e83fb7ede7/boot/start_x.elf .**
 
 **sudo docker cp <container_id>:/root/buildroot-precompiled-2017.08/output/build/rpi-firmware-685b3ceb0a6d6d6da7b028ee409850e83fb7ede7/boot/fixup_x.dat .**
