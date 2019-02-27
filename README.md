@@ -158,12 +158,6 @@ On a choisit de brancher le servo moteur sur le port **GPIO4**.
 
 Sur le servo moteur, on envoie une commande en angle entre 0 et 180 degrés.
 
-## Caméra
-A NE PAS FAIRE CAR DEJA PRESENT DANS LE MAKEFILE.
-
-Pour crée la sortie vidéo de votre caméra, il faut lancer la commande *modprobe bcm2835-v4l2* sur le terminal gtkterm.
-Cette commnde va créee votre sortie vidéo qui sera présente dans le répertoire _/dev/video0_.
-
 ## Lancement du code
 
 Sur la RaspberryPI, aller dans _/home/user/server_, là où se trouve le Makefile et exécutez la commande *make*, cette commande vas exécuter les commandes nécessaires.
