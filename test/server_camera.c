@@ -79,14 +79,14 @@ int main(int argc , char *argv[]){
 
 		if (flagPhoto) {
 			printf("Calling the library...");
-	        	// use of system to call directly the library
-	       		system("./v4l2grab -o image.jpg");
+    	// use of system to call directly the library
+   		system("./v4l2grab -o image.jpg");
 
-	        	FILE *picture;
+	    FILE *picture;
 			char buffer[1];
 			int size;
 
-			picture = fopen("image.bmp", "r");
+			picture = fopen("image.jpg", "r");
 			fseek(picture, 0, SEEK_END);
         		size = ftell(picture);
 			printf("%d\n", size);
