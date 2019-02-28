@@ -9,7 +9,7 @@ import numpy as np
 import pygame
 from pygame.locals import *
 import time
-import PIL.Image as Image
+
 
 def close_all(signal, frame):
 	#socket_servo.close()
