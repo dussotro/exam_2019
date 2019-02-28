@@ -53,10 +53,11 @@ void signals_handler(int signal_number)
 }
 
 int main(int argc , char *argv[]){
-
+	system("modprobe bcm2835-v4l2")
     	struct sigaction action;
     	action.sa_handler = signals_handler;
    	sigemptyset(& (action.sa_mask));
+
     	action.sa_flags = 0;
     	sigaction(SIGINT, & action, NULL);
     	sigaction(SIGTSTP, & action, NULL);
