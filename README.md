@@ -17,11 +17,11 @@ Notre système se compose de 4 fichiers importants:
 
 =========Installations requises======
 * Docker      *https://doc.ubuntu-fr.org/docker* suivre les indication
-* MatplotLib  *sudo pip install matplotlib*
 * Pygame      *sudo pip install pygame*
-* PIL         *sudo pip install Pillow*
 * GTKterm     *sudo apt-get install gtkterm*
+
 =====================================
+
 
 # DEROULEMENT
 * Préparation du docker
