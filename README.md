@@ -5,7 +5,7 @@ Dans ce Github vous trouverez:
 * un dossier client ou le code client est disponible.
 * Les fichiers déjà compiler à télécharger et à copier sur votre RaspberryPI *projet_cross_compiler*.
 
-Notre système se compose de 5 fichiers importants:
+Notre système se compose de 4 fichiers importants:
 
 * servo_server.py (RaspberryPI)
 * v4l2grab        (RaspberryPI)
@@ -76,6 +76,18 @@ Puis on Flash l'image sur la carte SD grâce à la commande _dd_
 **$ sudo dd if=sdcard.img of=/dev/sdX bs=4096 status=progress**
 
 _sdX_ étant le port sur lequel la carte SD est branché. On peut le récupérer a l'aide de _dmesg_.
+
+Si des fois vous voulez modifier l'image, par exemple rajouter des librairie, cela est possible mais il faudra recompiler l'image grâce à l'outil Buildroot.
+
+# Buildroot
+
+Voici comment on utilise builroot.
+Vous savez déjà cross-compiler avec buildroot! Voir au dessus,, mais si vous voulez avoir plus d'info !
+
+Si vous voulez avoir des informations sur l'image en question, le kernel et plus encore, executez la commande **make menuconfig** dans le docker dans buildroot-precompiled-2017.08 .
+
+Pour d'autres informations, voici le lien vers la documentation officiel: https://buildroot.org/downloads/manual/manual.html pour savoir comment utiliser ce fabuleux outil. 
+
 
 ## Copier Fichier dans la RaspberryPi
 Mettez vous dans le terminal ou vous n'êtes pas dans le Docker.
