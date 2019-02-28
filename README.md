@@ -5,7 +5,7 @@ Dans ce Github vous trouverez:
 * un dossier client ou le code client est disponible.
 * Les fichiers déjà compiler à télécharger et à copier sur votre RaspberryPI *projet_cross_compiler*.
 
-Notre système se compose de 5 fichiers importants:
+Notre système se compose de 4 fichiers importants:
 
 * servo_server.py (RaspberryPI)
 * v4l2grab        (RaspberryPI)
@@ -52,10 +52,13 @@ Commande à réaliser pour cross compiler votre fichier si vous voulez modifier 
 
 Dans le docker commencer par faire:
 * _git clone https://github.com/dussotro/exam_2019.git_
-* _cd exam_2019/server/camera/v4l2grab-master/
+* _cd exam_2019/server/v4l2grab/_
 * _./autogen.sh_, puis
 * _ac_cv_func_malloc_0_nonnull=yes ac_cv_func_realloc_0_nonnull=yes ./configure --host=arm-buildroot-linux-uclibcgnueabihf CC=/root/buildroot-precompiled-2017.08/output/host/usr/bin/arm-linux-gcc_
 * _make_,pour cross compilé
+* _cd /root/exam_2019/servers/_
+* _/root/buildroot-precompiled-2017.08/output/host/bin/arm-linux-gcc -Wall -o server_camera.o server_camera.c_
+
 
 le Fichier cross compiler pour votre RaspberryPi est **v4l2grab**
 
@@ -74,29 +77,44 @@ Puis on Flash l'image sur la carte SD grâce à la commande _dd_
 
 _sdX_ étant le port sur lequel la carte SD est branché. On peut le récupérer a l'aide de _dmesg_.
 
+Si des fois vous voulez modifier l'image, par exemple rajouter des librairie, cela est possible mais il faudra recompiler l'image grâce à l'outil Buildroot.
+
+# Buildroot
+
+Voici comment on utilise builroot.
+Vous savez déjà cross-compiler avec buildroot! Voir au dessus,, mais si vous voulez avoir plus d'info !
+
+Si vous voulez avoir des informations sur l'image en question, le kernel et plus encore, executez la commande **make menuconfig** dans le docker dans buildroot-precompiled-2017.08 .
+
+Pour d'autres informations, voici le lien vers la documentation officiel: https://buildroot.org/downloads/manual/manual.html pour savoir comment utiliser ce fabuleux outil. 
+
+
 ## Copier Fichier dans la RaspberryPi
 Mettez vous dans le terminal ou vous n'êtes pas dans le Docker.
 Copier les fichiers sur votre ordinateur, depuis le docker, dans un dossier:
 
 **sudo docker cp <container_id>:/root/exam_2019/servers/servo_server.py .**
 
-**sudo docker cp <container_id>:/root/exam_2019/servers/camera/v4l2grab-master/v4l2grab .**
+**sudo docker cp <container_id>:/root/exam_2019/servers/v4l2grab/v4l2grab .**
+
+**sudo docker cp <container_id>:/root/exam_2019/servers/server_camera.o .**
 
 **sudo docker cp <container_id>:/root/buildroot-precompiled-2017.08/output/build/rpi-firmware-685b3ceb0a6d6d6da7b028ee409850e83fb7ede7/boot/start_x.elf .**
 
 **sudo docker cp <container_id>:/root/buildroot-precompiled-2017.08/output/build/rpi-firmware-685b3ceb0a6d6d6da7b028ee409850e83fb7ede7/boot/fixup_x.dat .**
 
 
-Prendre la carte sd et la mettre sur l'ordinateur et déplacer les fichier à la main.
-
+Monter la carte SD pour faciliter la copie des fichiers. Ces fichiers sont disponibles dans le dossier *almost_plug_and_play*
 
 Mettre les fichiers dans le répertoire _/home/user_,créez un dossier server qui aura les fichiers:
 * servo_server.py
+* server_camera.o (fichier cross compilé)
 * v4l2grab (fichier cross compilé)
 
 Il faut aussi que vous copier les fichier sur la 1ère partition de la carte SD:
 * _start_x.elf_
 * _fixup_x.dat_
+
 Utilisé la commande _cp_ ou faite le à la main.
 
 
@@ -144,16 +162,16 @@ Adresse ip fixe de la RaspberryPi : _172.20.21.164_<br />
 Redémarré votre RaaspberryPi.
 
 Veuillez bien vérifier que votre RaspberryPi est bien la bonne adresse IP.
-Si ce n'est pas la cas, vous pouvez executer la commande suivant dans le terminal gtkterm:
-**ifconfig eth0 172.20.21.1644**
+Si ce n'est pas la cas, vous pouvez executer la commande suivant dans le terminal *gtkterm*:
+**ifconfig eth0 172.20.21.164**
 Cette commande fixera l'addresse Ip de la RaspberryPi.
 
 ### Il faut ensuite faire correspondre Adresse IP fixe de l'ordinateur :
 Pour l'ordinateur il faut effectuer la commande,
 
-*ifconfig XXXXXXX 172.20.11.72*
+en général l'éthernet peut s'appeler *ethX* ou *enpXXXXX*: on peut utiliser *ifconfig* pour trouver le nom de l'interface.
 
- avec XXXXXXX, le nom de l'ethernet de votre pc
+*ifconfig XXXXXXX 172.20.11.72*
 
 ## Servo Moteur
 
@@ -163,9 +181,9 @@ Sur le servo moteur, on envoie une commande en angle entre 0 et 180 degrés.
 
 ## Lancement du code
 
-Sur la RaspberryPI, aller dans _/home/user/server_, là où se trouve les fichiers à exécuter et exécutez les commande suivantes:
-* **python server_servo.py &**
-* **./server_camera**
+Sur la RaspberryPI, aller dans _/home/user/_, là où se trouve les fichiers à exécuter et exécutez les commande suivantes à l'aide de _gtkterm_:
+* **python server_servo.py 172.20.21.164 &**
+* **./server_camera.o**
 
 Sur votre ordinateur, aller dans le dossier client et lancer la commande, **python3 client.py**. A cette instant vous entrez dans la peau du client qui peut communiquer avec le server de la RaspberryPi.
 
@@ -173,7 +191,7 @@ Sur votre ordinateur, aller dans le dossier client et lancer la commande, **pyth
 
 * Pour changer l'angle de la caméra il vous faudra appuyer sur les touches flèches *droite* et *gauche*. L'angle s'affiche sur l'écran pour savoir ou vous en êtes.
 
-* Pour prendre une photo il faut appuyer sur la touche *s* de votre clavier, pendant 2secondes, pour sauvegarder l'image sur votre ordinateur et l'afficher. L'image est écrasée d'un appui à l'autre sur la touche *s*.
+* Pour prendre une photo il faut appuyer sur la touche *s* de votre clavier (essayer de rester appuyé), pour sauvegarder l'image sur votre ordinateur et l'afficher. L'image est écrasée d'un appui à l'autre sur la touche *s*.
 
 * Si vous rester appuyer dessus, vous aurez une vidéo en 1fps ! Trop rapide.
 
